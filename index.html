@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#0A0A0F">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>EduFlow</title>
+<style>
+  :root{
+    --bg:#0A0A0F; --ink:#F4F2FF; --fog:#A39FC4; --line:rgba(255,255,255,.10);
+    --g1:#7C3AED; --g2:#C026D3; --g3:#EC4899; --gold:#E8B04B; --blue:#54A8FF;
+    --grad:linear-gradient(135deg,var(--g1),var(--g2),var(--g3));
+    --nav-h:62px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{height:100%;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,system-ui,sans-serif;overflow:hidden}
+  #app{height:100dvh;width:100%;max-width:480px;margin:0 auto;position:relative;background:#000;overflow:hidden}
+  .view{position:absolute;inset:0;bottom:var(--nav-h);display:none;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .view.active{display:block}
+
+  /* ─── top brand bar ─── */
+  .topbar{position:absolute;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;gap:9px;
+    padding:max(12px,env(safe-area-inset-top)) 16px 12px;pointer-events:none;
+    background:linear-gradient(180deg,rgba(0,0,0,.55),transparent)}
+  .logo{width:30px;height:30px;border-radius:9px;background:var(--grad);display:flex;align-items:center;
+    justify-content:center;font-weight:800;color:#fff;font-size:17px;box-shadow:0 4px 16px rgba(192,38,211,.4)}
+  .brandname{font-weight:800;font-size:19px;letter-spacing:-.3px}
+  .brandname b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+  /* ─── FEED ─── */
+  #feed{padding:0;scroll-snap-type:y mandatory;overscroll-behavior-y:contain;background:#000}
+  .reel{position:relative;height:calc(100dvh - var(--nav-h));scroll-snap-align:start;scroll-snap-stop:always;
+    background:#000;display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .reel video{width:100%;height:100%;object-fit:cover;background:#000}
+  .reel .poster{position:absolute;inset:0;background:#0A0A0F center/cover no-repeat;display:flex;
+    align-items:center;justify-content:center}
+  .spin{width:34px;height:34px;border-radius:50%;border:3px solid rgba(255,255,255,.18);
+    border-top-color:#fff;animation:spin 1s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .reel .grad-b{position:absolute;left:0;right:0;bottom:0;height:42%;pointer-events:none;
+    background:linear-gradient(0deg,rgba(0,0,0,.78),transparent)}
+  .reel .meta{position:absolute;right:14px;left:78px;bottom:18px;z-index:5}
+  .course-chip{display:inline-flex;align-items:center;gap:7px;background:rgba(124,58,237,.28);
+    border:1px solid rgba(124,58,237,.5);border-radius:999px;padding:4px 11px 4px 5px;font-size:12.5px;
+    font-weight:600;margin-bottom:10px;backdrop-filter:blur(8px)}
+  .course-chip .av{width:20px;height:20px;border-radius:50%;background:var(--grad);display:flex;
+    align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff}
+  .reel .title{font-size:18px;font-weight:700;line-height:1.35;text-shadow:0 2px 14px rgba(0,0,0,.6)}
+  .reel .lect{font-size:13px;color:var(--fog);margin-top:5px}
+  .rail{position:absolute;left:10px;bottom:24px;z-index:6;display:flex;flex-direction:column;gap:20px;align-items:center}
+  .rail button{background:none;border:none;color:#fff;display:flex;flex-direction:column;align-items:center;gap:3px;
+    font-family:inherit;font-size:12px;font-weight:600;cursor:pointer}
+  .rail .ic{width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.12);display:flex;
+    align-items:center;justify-content:center;backdrop-filter:blur(6px);transition:transform .15s,background .2s}
+  .rail button:active .ic{transform:scale(.86)}
+  .rail .ic svg{width:24px;height:24px}
+  .rail button.on .ic{background:rgba(236,72,153,.25)}
+  .rail button.on .ic svg{fill:var(--g3);stroke:var(--g3)}
+  .rail button.on.save .ic svg{fill:var(--gold);stroke:var(--gold)}
+  .muteflag{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:7;
+    background:rgba(0,0,0,.55);border-radius:50%;width:64px;height:64px;display:flex;align-items:center;
+    justify-content:center;opacity:0;transition:opacity .25s;pointer-events:none}
+  .muteflag.show{opacity:1}
+  .muteflag svg{width:30px;height:30px;fill:#fff}
+  .scrollhint{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);z-index:6;color:rgba(255,255,255,.5);
+    font-size:11px;animation:bob 1.8s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(5px)}}
+
+  /* ─── COURSES ─── */
+  .pad{padding:calc(max(12px,env(safe-area-inset-top)) + 46px) 16px 24px}
+  .h1{font-size:24px;font-weight:800;letter-spacing:-.4px;margin-bottom:4px}
+  .sub{color:var(--fog);font-size:14px;margin-bottom:20px;line-height:1.5}
+  .ccard{background:linear-gradient(180deg,#16121F,#120F1A);border:1px solid var(--line);border-radius:20px;
+    padding:18px;margin-bottom:16px;cursor:pointer;transition:transform .15s,border-color .2s}
+  .ccard:active{transform:scale(.985)}
+  .ccard .row{display:flex;align-items:center;gap:13px}
+  .ccard .cav{width:50px;height:50px;border-radius:15px;background:var(--grad);flex:none;display:flex;
+    align-items:center;justify-content:center;font-size:23px;font-weight:800;color:#fff}
+  .ccard h3{font-size:17px;font-weight:700}
+  .ccard .lc{color:var(--fog);font-size:13px;margin-top:2px}
+  .ccard .stat{display:flex;gap:16px;margin-top:14px;color:var(--fog);font-size:13px}
+  .ccard .stat b{color:var(--ink)}
+  .thumbs{display:flex;gap:7px;margin-top:14px;overflow:hidden}
+  .thumbs .t{flex:1;aspect-ratio:9/15;border-radius:9px;border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+  .thumbs .t span{font-size:20px;line-height:1}
+  .thumbs .t::after{content:"";position:absolute;inset:0;
+    background:radial-gradient(circle at 50% 38%,rgba(255,255,255,.10),transparent 60%)}
+  .thumbs .play{position:absolute;width:26px;height:26px;border-radius:50%;
+    background:rgba(255,255,255,.16);backdrop-filter:blur(4px);display:flex;align-items:center;
+    justify-content:center;z-index:2}
+  .thumbs .play::before{content:"";border-left:8px solid #fff;border-top:5px solid transparent;
+    border-bottom:5px solid transparent;margin-left:2px}
+
+  /* ─── ENGINE / AI ops story ─── */
+  .pipe{display:flex;flex-direction:column;gap:0;margin:8px 0 26px}
+  .step{display:flex;gap:14px;align-items:flex-start;position:relative;padding-bottom:22px}
+  .step:not(:last-child)::before{content:"";position:absolute;right:18px;top:38px;bottom:0;width:2px;
+    background:linear-gradient(var(--g1),rgba(124,58,237,.15))}
+  .step .dot{width:38px;height:38px;border-radius:11px;background:rgba(124,58,237,.16);
+    border:1px solid rgba(124,58,237,.45);flex:none;display:flex;align-items:center;justify-content:center;
+    font-size:19px;z-index:2}
+  .step h4{font-size:15.5px;font-weight:700;margin-top:7px}
+  .step p{color:var(--fog);font-size:13px;line-height:1.5;margin-top:3px}
+  .metrics{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:6px 0 24px}
+  .metric{background:linear-gradient(180deg,#16121F,#120F1A);border:1px solid var(--line);border-radius:16px;padding:16px}
+  .metric .big{font-size:26px;font-weight:800;background:var(--grad);-webkit-background-clip:text;
+    background-clip:text;color:transparent;line-height:1.1}
+  .metric .lbl{color:var(--fog);font-size:12.5px;margin-top:5px;line-height:1.4}
+  .pill{display:inline-block;background:rgba(124,58,237,.16);border:1px solid rgba(124,58,237,.4);
+    color:#C9B8FF;border-radius:999px;padding:5px 13px;font-size:12.5px;font-weight:600;margin:0 0 14px}
+
+  /* ─── bottom nav ─── */
+  nav{position:absolute;bottom:0;left:0;right:0;height:var(--nav-h);z-index:30;display:flex;
+    padding-bottom:env(safe-area-inset-bottom);
+    background:rgba(12,10,18,.86);backdrop-filter:blur(18px);border-top:1px solid var(--line)}
+  nav button{flex:1;background:none;border:none;color:var(--fog);font-family:inherit;font-size:11px;font-weight:600;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;transition:color .2s}
+  nav button svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2}
+  nav button.on{color:var(--ink)}
+  nav button.on svg{stroke:var(--g2)}
+  .back{position:absolute;top:max(12px,env(safe-area-inset-top));right:14px;z-index:25;width:38px;height:38px;
+    border-radius:50%;background:rgba(0,0,0,.4);backdrop-filter:blur(8px);border:1px solid var(--line);
+    display:none;align-items:center;justify-content:center;cursor:pointer}
+  .back svg{width:20px;height:20px;fill:none;stroke:#fff;stroke-width:2.4}
+  .back.show{display:flex}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="topbar"><div class="logo">E</div><div class="brandname"><b>EduFlow</b></div></div>
+  <div class="back" id="back" onclick="showCourses()"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
+
+  <!-- FEED -->
+  <section class="view active" id="feed"></section>
+
+  <!-- COURSES -->
+  <section class="view" id="courses">
+    <div class="pad">
+      <div class="h1">הקורסים שלי</div>
+      <div class="sub">תוכן שנוצר אוטומטית מחומרי-הקורס ע״י סוכן-AI. עוקב אחרי 2 קורסים.</div>
+      <div id="courseList"></div>
+    </div>
+  </section>
+
+  <!-- ENGINE -->
+  <section class="view" id="engine">
+    <div class="pad">
+      <span class="pill">⚙️ איך זה עובד</span>
+      <div class="h1">המנוע מאחורי EduFlow</div>
+      <div class="sub">מרצה מעלה חומר פעם אחת. סוכן-AI הופך אותו לסדרת רילים קצרים, מתזמן אותם לאורך הסמסטר, ולומד מה עובד — אוטונומית.</div>
+      <div class="pipe" id="pipe"></div>
+      <div class="h1" style="font-size:19px;margin-bottom:12px">המספרים</div>
+      <div class="metrics" id="metrics"></div>
+      <div class="sub" style="font-size:12.5px">משמעת-עלות מובנית: מנוע-אנימציה תכנותי ($0 ויזואל) הוא ברירת-המחדל; כלי-וידאו יקרים (Kling/HeyGen) חסומים מאחורי שער-עלות fails-closed. כך העלות-לריל נשארת ~4¢ גם במאות רילים בחודש.</div>
+    </div>
+  </section>
+
+  <nav>
+    <button class="on" id="nav-feed" onclick="go('feed')"><svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1V9.5z"/></svg>פיד</button>
+    <button id="nav-courses" onclick="go('courses')"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M4 9h16"/></svg>קורסים</button>
+    <button id="nav-engine" onclick="go('engine')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M12 4v2M12 18v2M4 12h2M18 12h2M6 6l1.5 1.5M16.5 16.5L18 18M18 6l-1.5 1.5M7.5 16.5L6 18"/></svg>המנוע</button>
+  </nav>
+</div>
+
+<script>
+const COURSES = {
+  ds: {name:"מבוא ללמידת מכונה", lecturer:"ד״ר נועה אלגוריתם", emoji:"🧠", initial:"מ", subject:"מדעי המחשב"},
+  ifrs:{name:"חשבונאות פיננסית — IFRS", lecturer:"ד״ר מיכל רואה-חשבון", emoji:"📊", initial:"ח", subject:"חשבונאות"},
+};
+// slug → /media/pilot/<slug>.mp4 (baked into the prod image)
+const REELS = [
+  {s:"stem_sqrt2", c:"ds", t:"למה האלכסון של ריבוע הוא שורש 2?", l:"3,412",sv:"289",cm:"41"},
+  {s:"ifrs15_revenue_vs_cash", c:"ifrs", t:"קיבלת 1,200 ש״ח — וההכנסה אפס?", l:"2,108",sv:"540",cm:"63"},
+  {s:"stem_supervised", c:"ds", t:"איך מחשב חוזה מחיר של בית שלא ראה?", l:"4,051",sv:"612",cm:"88"},
+  {s:"ifrs15_five_steps", c:"ifrs", t:"5 השלבים להכרה בהכנסה", l:"1,766",sv:"431",cm:"37"},
+  {s:"ifrs16_on_balance_sheet", c:"ifrs", t:"כל חכירה עולה למאזן", l:"1,503",sv:"388",cm:"29"},
+  {s:"ias23_interest_becomes_asset", c:"ifrs", t:"מתי ריבית הופכת לנכס?", l:"1,210",sv:"301",cm:"22"},
+  {s:"ifrs9_classification_logic", c:"ifrs", t:"לוגיקת הסיווג של מכשירים פיננסיים", l:"982",sv:"244",cm:"19"},
+  {s:"ifrs15_performance_obligation", c:"ifrs", t:"טלפון + חבילה = שתי מחויבויות", l:"1,640",sv:"402",cm:"35"},
+  {s:"ias23_capitalization_rate", c:"ifrs", t:"שיעור ההיוון — ספציפי מול כללי", l:"870",sv:"190",cm:"14"},
+  {s:"ifrs16_pnl_frontloaded", c:"ifrs", t:"למה ההוצאה כבדה בהתחלה?", l:"1,120",sv:"276",cm:"24"},
+  {s:"ifrs9_expected_credit_loss", c:"ifrs", t:"הפסדי אשראי צפויים — ECL", l:"760",sv:"168",cm:"12"},
+  {s:"ias23_start_stop", c:"ifrs", t:"מתי מתחילים ומפסיקים להוון?", l:"690",sv:"151",cm:"11"},
+  {s:"ifrs16_initial_measurement", c:"ifrs", t:"מדידה ראשונית של חכירה", l:"815",sv:"203",cm:"16"},
+  {s:"ifrs9_sppi_test", c:"ifrs", t:"מבחן ה-SPPI ב-90 שניות", l:"1,034",sv:"259",cm:"21"},
+];
+const src = s => `reels/${s}.mp4`;
+const THUMBG = ['linear-gradient(135deg,#1d1338,#2a1648)','linear-gradient(135deg,#0f1830,#172a4a)',
+  'linear-gradient(135deg,#28122a,#431a38)','linear-gradient(135deg,#101e26,#173640)'];
+
+const HEART='<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 21s-7-4.5-9.5-9C1 9 2.5 5.5 6 5.5c2 0 3.2 1.2 4 2.3.8-1.1 2-2.3 4-2.3 3.5 0 5 3.5 3.5 6.5C19 16.5 12 21 12 21z"/></svg>';
+const BMK='<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M6 4h12v16l-6-4-6 4V4z"/></svg>';
+const CMT='<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M4 5h16v11H9l-4 3V5z"/></svg>';
+const SHR='<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M4 12v7h16v-7M12 3v13M8 7l4-4 4 4"/></svg>';
+const SPK_OFF='<svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 5V4L8 9H4z"/><path d="M16 9l5 6M21 9l-5 6" stroke="#fff" stroke-width="2"/></svg>';
+
+let muted = true;
+function buildFeed(list, root){
+  root.innerHTML = "";
+  list.forEach((r,i)=>{
+    const co = COURSES[r.c];
+    const el = document.createElement('div'); el.className='reel';
+    el.innerHTML = `
+      <div class="poster"><div class="spin"></div></div>
+      <video loop muted playsinline preload="none" data-src="${src(r.s)}"></video>
+      <div class="grad-b"></div>
+      <div class="muteflag"><svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 5V4L8 9H4z"/></svg></div>
+      <div class="rail">
+        <button class="like" onclick="toggle(this)"><span class="ic">${HEART}</span><span class="n">${r.l}</span></button>
+        <button class="save" onclick="toggle(this)"><span class="ic">${BMK}</span><span class="n">${r.sv}</span></button>
+        <button><span class="ic">${CMT}</span><span class="n">${r.cm}</span></button>
+        <button><span class="ic">${SHR}</span><span>שיתוף</span></button>
+      </div>
+      <div class="meta">
+        <span class="course-chip"><span class="av">${co.initial}</span>${co.name}</span>
+        <div class="title">${r.t}</div>
+        <div class="lect">${co.lecturer} · נוצר ע״י AI</div>
+      </div>
+      ${i===0?'<div class="scrollhint">⌃ גלול לרילים נוספים</div>':''}`;
+    root.appendChild(el);
+    el.querySelector('video').addEventListener('click', tapVideo);
+  });
+  observe(root);
+}
+function tapVideo(e){
+  muted = !muted;
+  document.querySelectorAll('#feed video, #cfeed video').forEach(v=>v.muted=muted);
+  const flag = e.target.closest('.reel').querySelector('.muteflag');
+  flag.classList.add('show'); setTimeout(()=>flag.classList.remove('show'),700);
+  if(!muted) e.target.play().catch(()=>{});
+}
+function toggle(b){ b.classList.toggle('on');
+  const n=b.querySelector('.n'); if(n){ let v=parseInt(n.textContent.replace(/,/g,'')); n.textContent=(b.classList.contains('on')?v+1:v-1).toLocaleString();}}
+
+let io;
+function observe(root){
+  if(io) io.disconnect();
+  io = new IntersectionObserver((ents)=>{
+    ents.forEach(en=>{
+      const v = en.target.querySelector('video');
+      if(en.isIntersecting && en.intersectionRatio>0.6){
+        if(!v.src){ v.src=v.dataset.src; const p=en.target.querySelector('.poster'); v.addEventListener('loadeddata',()=>p&&(p.style.display='none'),{once:true}); }
+        v.muted=muted; v.play().catch(()=>{});
+      } else { v.pause(); }
+    });
+  },{threshold:[0,.6,1], root});
+  root.querySelectorAll('.reel').forEach(r=>io.observe(r));
+}
+
+// courses
+function buildCourses(){
+  const root=document.getElementById('courseList'); root.innerHTML="";
+  Object.entries(COURSES).forEach(([id,co])=>{
+    const reels=REELS.filter(r=>r.c===id);
+    const el=document.createElement('div'); el.className='ccard'; el.onclick=()=>openCourse(id);
+    el.innerHTML=`<div class="row"><div class="cav">${co.emoji}</div>
+      <div><h3>${co.name}</h3><div class="lc">${co.lecturer} · ${co.subject}</div></div></div>
+      <div class="stat"><span><b>${reels.length}</b> רילים</span><span><b>${(reels.length*1.2+2).toFixed(1)}K</b> צפיות</span><span><b>${id==='ds'?'97':'1.2K'}</b> עוקבים</span></div>
+      <div class="thumbs">${reels.slice(0,4).map((r,j)=>`<div class="t" style="background:${THUMBG[j%THUMBG.length]}"><span class="play"></span></div>`).join('')}</div>`;
+    root.appendChild(el);
+  });
+}
+let cio;
+function openCourse(id){
+  const co=COURSES[id];
+  let v=document.getElementById('cfeed');
+  if(!v){ v=document.createElement('section'); v.className='view'; v.id='cfeed'; v.style.padding=0; document.getElementById('app').insertBefore(v,document.querySelector('nav')); }
+  buildFeed(REELS.filter(r=>r.c===id), v);
+  document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
+  v.classList.add('active'); document.getElementById('back').classList.add('show');
+}
+function showCourses(){ document.getElementById('back').classList.remove('show'); go('courses'); document.querySelectorAll('#cfeed video').forEach(v=>v.pause()); }
+
+// engine page
+const STEPS=[
+  {i:"📄",h:"1 · העלאת חומר",p:"המרצה מעלה PDF / מצגת / הקלטה. extractor מחלץ טקסט (Whisper לאודיו)."},
+  {i:"✍️",h:"2 · כתיבת תסריט (Claude)",p:"שרשרת 5-שלבים: Style Director → Investigator → Writer → Critic → Polisher. שער-איכות 7/8 + עיגון-מקור."},
+  {i:"🎙️",h:"3 · קול + כתוביות",p:"ElevenLabs (עברית) + כתוביות-קריוקי מסונכרנות-דיבור (Whisper timing, RTL מדויק)."},
+  {i:"🎬",h:"4 · רינדור ויזואלי",p:"מנוע-אנימציה תכנותי (scene2d, $0) למקצועות מדעיים, או וידאו-סטוק (Pexels) — FFmpeg מרכיב."},
+  {i:"📈",h:"5 · פרסום + למידה",p:"מתזמן לאורך הסמסטר, מודד watch-time, ומדייק את הסגנון לפי מה שעובד."},
+];
+const METRICS=[
+  {b:"~4¢",l:"עלות לריל (ז'אנר תכנותי, $0 ויזואל)"},
+  {b:"~60s",l:"זמן ייצור לריל מקצה-לקצה"},
+  {b:"14",l:"רילים חיים ב-2 קורסים בדמו הזה"},
+  {b:"×1000",l:"מחזיק מאות-אלפי רילים באותה עלות-יחידה"},
+];
+function buildEngine(){
+  document.getElementById('pipe').innerHTML=STEPS.map(s=>`<div class="step"><div class="dot">${s.i}</div><div><h4>${s.h}</h4><p>${s.p}</p></div></div>`).join('');
+  document.getElementById('metrics').innerHTML=METRICS.map(m=>`<div class="metric"><div class="big">${m.b}</div><div class="lbl">${m.l}</div></div>`).join('');
+}
+
+// Kickstart the first reel of a view (don't rely solely on IntersectionObserver,
+// which can miss the initially-visible element on first paint).
+function kick(view){
+  const reel = view.querySelector('.reel'); if(!reel) return;
+  const v = reel.querySelector('video'); if(!v) return;
+  if(!v.src){ v.src = v.dataset.src; const p = reel.querySelector('.poster');
+    if(p) v.addEventListener('loadeddata',()=>{p.style.display='none';},{once:true}); }
+  v.muted = muted; v.play().catch(()=>{});
+}
+
+function go(id){
+  document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
+  document.getElementById('back').classList.remove('show');
+  const view = document.getElementById(id); view.classList.add('active');
+  ['feed','courses','engine'].forEach(n=>document.getElementById('nav-'+n).classList.toggle('on',n===id));
+  document.querySelectorAll('#cfeed video').forEach(v=>v.pause());
+  if(id!=='feed') document.querySelectorAll('#feed video').forEach(v=>v.pause());
+  else kick(view);
+}
+
+buildFeed(REELS, document.getElementById('feed'));
+buildCourses(); buildEngine();
+// First paint: load + play the opening reel so the feed is alive immediately.
+requestAnimationFrame(()=>kick(document.getElementById('feed')));
+</script>
+</body>
+</html>

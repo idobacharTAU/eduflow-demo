@@ -1,0 +1,127 @@
+<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EduFlow — סטודיו: שני רילים על הרף החדש</title>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0b12;--card:#15151f;--line:#262633;--txt:#ececf2;--mut:#9a9ab0;--acc:#c026d3;--acc2:#7c3aed;--pink:#ec4899}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--txt);font-family:'Rubik','Segoe UI',Arial,sans-serif;line-height:1.5}
+.wrap{max-width:920px;margin:0 auto;padding:28px 18px 70px}
+h1{font-size:26px;margin:0 0 4px;font-weight:800;background:linear-gradient(90deg,var(--acc2),var(--acc),var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--mut);margin:0 0 24px;font-size:15px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:34px;justify-items:center}
+@media(max-width:640px){.grid{grid-template-columns:1fr}}
+.phone{display:flex;flex-direction:column;gap:9px;align-items:center;width:300px}
+.sideband{font-size:13px;font-weight:700;letter-spacing:.3px}
+.stage{position:relative;width:300px;aspect-ratio:9/16;border-radius:28px;overflow:hidden;background:#000;border:5px solid #1c1c28;box-shadow:0 12px 34px rgba(0,0,0,.55);cursor:pointer}
+.stage video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.scrim{position:absolute;left:0;right:0;bottom:0;height:42%;background:linear-gradient(to bottom,transparent,rgba(0,0,0,.6));pointer-events:none}
+.progress{position:absolute;top:0;left:0;width:0%;height:3px}
+.rail{position:absolute;right:8px;bottom:24%;display:flex;flex-direction:column;gap:14px;align-items:center}
+.rail .ri{display:flex;flex-direction:column;align-items:center;font-size:19px;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.8)}
+.rail .ri span{font-size:10px;font-weight:700;margin-top:2px}
+.chead{position:absolute;left:10px;bottom:19%;display:flex;align-items:center;gap:7px;max-width:64%}
+.chead .av{width:24px;height:24px;border-radius:50%;flex:0 0 auto;border:1.5px solid #fff}
+.chead .cname{color:#fff;font-weight:700;font-size:12px;text-shadow:0 1px 4px rgba(0,0,0,.85)}
+.desc{position:absolute;left:10px;bottom:13.5%;max-width:64%;color:#fff;font-size:12px;font-weight:600;text-shadow:0 1px 4px rgba(0,0,0,.85)}
+.cap{position:absolute;left:0;right:0;bottom:30%;padding:0 12px;text-align:center;direction:rtl;
+     font-family:'Rubik','Segoe UI',Arial,sans-serif;font-weight:700;font-size:16px;line-height:23px;
+     color:#fff;text-shadow:0 1px 5px rgba(0,0,0,.92);pointer-events:none}
+.cap .w{color:#fff}.cap .w.on{color:#ffd84d}
+.tabbar{position:absolute;left:14px;right:14px;bottom:12px;height:46px;border-radius:23px;
+        background:rgba(20,16,31,.82);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.08);
+        display:flex;align-items:center;justify-content:space-around;font-size:16px}
+.tabbar .plus{background:linear-gradient(135deg,var(--acc2),var(--acc));width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700}
+.vlabel{font-size:12px;color:var(--mut);text-align:center}.vlabel b{color:var(--txt)}
+.gates{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.gate{font-size:11px;font-weight:700;border-radius:6px;padding:2px 8px}
+.gate.ok{background:rgba(52,211,153,.16);color:#34d399}
+.gate.bad{background:rgba(248,113,113,.18);color:#f87171}
+.gate.na{background:rgba(154,154,176,.14);color:var(--mut)}
+.play{background:linear-gradient(135deg,var(--acc2),var(--acc));color:#fff;border:0;border-radius:9px;padding:8px 18px;font-size:13px;font-weight:700;cursor:pointer}
+.note{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:28px 0 0;font-size:14px;color:var(--mut)}
+.note b{color:var(--txt)}
+.foot{color:var(--mut);font-size:12px;margin-top:24px;text-align:center}
+</style></head><body><div class="wrap">
+<h1>סטודיו איכות — שני רילים על הרף החדש 🎬</h1>
+<p class="sub">שני הרילים עברו את הרף המלא: כריכה מעוצבת (ממותגת, לא פריים אקראי), קול מגוון (Bill למבני-נתונים, Brian לחשבונאות — שני קולות שונים מתוך ה-6 שבחרת), וכתוביות שיושרו מחדש (Whisper large-v3) צמודות לקול החדש. לחץ על כל טלפון (או ▶︎) לנגן. לפני הנגינה רואים את הכריכה המעוצבת (poster). הכתובית מצוירת app-style (קריוקי RTL, מילה-מודגשת) במיקום ה-app — בדיוק מה שהסטודנט רואה בפיד.</p>
+
+<div class="grid">
+  <div class="phone">
+    <div class="sideband" style="color:#2dd4bf">מבני נתונים</div>
+    <div class="stage">
+      <video data-slug="ds_stack_vs_queue" loop preload="metadata" playsinline
+             poster="ds_stack_vs_queue.cover.jpg" src="ds_stack_vs_queue.mp4"></video>
+      <div class="scrim"></div>
+      <div class="progress" style="background:#2dd4bf"></div>
+      <div class="rail">
+        <div class="ri">❤️<span>1.2k</span></div>
+        <div class="ri">💬<span>84</span></div>
+        <div class="ri">🔖<span>312</span></div>
+        <div class="ri">↗<span></span></div>
+      </div>
+      <div class="chead"><span class="av" style="background:#2dd4bf"></span><span class="cname">מבני נתונים</span></div>
+      <div class="desc">מחסנית מול תור — ההבדל היחיד</div>
+      <div class="cap" data-slug="ds_stack_vs_queue"></div>
+      <div class="tabbar"><span>🏠</span><span>🔍</span><span class="plus">＋</span><span>🔖</span><span>👤</span></div>
+    </div>
+    <div class="vlabel">קול: <b>Bill</b> · כתוביות מ-cue-JSON · כריכה מעוצבת (poster)</div>
+    <div class="gates"><span class="gate ok">ויזואל: PASS</span><span class="gate ok">פריימים: PASS</span><span class="gate ok">סנכרון כתוביות: PASS</span><span class="gate ok">גיוון קול: PASS</span></div>
+    <button class="play" data-slug="ds_stack_vs_queue">▶︎ נגן</button>
+  </div>
+
+  <div class="phone">
+    <div class="sideband" style="color:#facc15">חשבונאות · מדידה</div>
+    <div class="stage">
+      <video data-slug="ifrs15_revenue_vs_cash" loop preload="metadata" playsinline
+             poster="ifrs15_revenue_vs_cash.cover.jpg" src="ifrs15_revenue_vs_cash.mp4"></video>
+      <div class="scrim"></div>
+      <div class="progress" style="background:#facc15"></div>
+      <div class="rail">
+        <div class="ri">❤️<span>1.2k</span></div>
+        <div class="ri">💬<span>84</span></div>
+        <div class="ri">🔖<span>312</span></div>
+        <div class="ri">↗<span></span></div>
+      </div>
+      <div class="chead"><span class="av" style="background:#facc15"></span><span class="cname">חשבונאות · מדידה</span></div>
+      <div class="desc">IFRS 15 — הכנסה אינה מזומן</div>
+      <div class="cap" data-slug="ifrs15_revenue_vs_cash"></div>
+      <div class="tabbar"><span>🏠</span><span>🔍</span><span class="plus">＋</span><span>🔖</span><span>👤</span></div>
+    </div>
+    <div class="vlabel">קול: <b>Brian</b> · כתוביות מ-cue-JSON · כריכה מעוצבת (poster)</div>
+    <div class="gates"><span class="gate ok">ויזואל: PASS</span><span class="gate ok">פריימים: PASS</span><span class="gate ok">סנכרון כתוביות: PASS</span><span class="gate ok">גיוון קול: PASS</span></div>
+    <button class="play" data-slug="ifrs15_revenue_vs_cash">▶︎ נגן</button>
+  </div></div>
+
+<div class="note"><b>מה לאשר:</b> האם זה הרף? (1) <b>כריכה</b> — ממותגת, קריאה, מסגירה את הנושא; (2) <b>קול</b> — מגוון בין הרילים; (3) <b>סנכרון כתוביות</b> — צמוד לדיבור; (4) <b>ויזואל</b>. אם כן — נרחיב את אותו קו-ייצור לכל הרילים. אם לא — מתקנים לפני הרחבה.</div>
+<div class="foot">EduFlow · two-reel quality studio · captions @ REEL_LAYOUT 30% · נפתח עצמאית בדפדפן (כל הקבצים יחסיים)</div>
+</div>
+<script>
+const TRACKS={"ds_stack_vs_queue": {"slug": "ds_stack_vs_queue_FULL_sketch", "duration": 37.76, "cues": [{"start": 0.38, "end": 2.66, "text": "מחסנית ותור נראות זהות —", "words": [{"t": "מחסנית", "s": 0.38, "e": 0.9}, {"t": "ותור", "s": 0.9, "e": 1.4}, {"t": "נראות", "s": 1.4, "e": 1.9}, {"t": "זהות", "s": 1.9, "e": 2.51}, {"t": "—", "s": 2.51, "e": 2.66}]}, {"start": 2.66, "end": 4.4, "text": "וכל ההבדל ביניהן הוא", "words": [{"t": "וכל", "s": 2.66, "e": 3.12}, {"t": "ההבדל", "s": 3.12, "e": 3.56}, {"t": "ביניהן", "s": 3.56, "e": 4.06}, {"t": "הוא", "s": 4.06, "e": 4.4}]}, {"start": 4.4, "end": 5.96, "text": "מילה אחת", "words": [{"t": "מילה", "s": 4.4, "e": 4.74}, {"t": "אחת", "s": 4.74, "e": 5.96}]}, {"start": 5.96, "end": 7.38, "text": "שתיהן מבנה שמכניס", "words": [{"t": "שתיהן", "s": 5.96, "e": 6.4}, {"t": "מבנה", "s": 6.4, "e": 6.72}, {"t": "שמכניס", "s": 6.72, "e": 7.38}]}, {"start": 7.38, "end": 9.06, "text": "ומוציא איברים מהקצה", "words": [{"t": "ומוציא", "s": 7.38, "e": 7.82}, {"t": "איברים", "s": 7.82, "e": 8.2}, {"t": "מהקצה", "s": 8.2, "e": 9.06}]}, {"start": 9.06, "end": 10.88, "text": "ושתיהן עושות כל פעולה", "words": [{"t": "ושתיהן", "s": 9.06, "e": 9.94}, {"t": "עושות", "s": 9.94, "e": 10.22}, {"t": "כל", "s": 10.22, "e": 10.34}, {"t": "פעולה", "s": 10.34, "e": 10.88}]}, {"start": 10.88, "end": 14.0, "text": "ב-O(1) — מהיר וקבוע", "words": [{"t": "ב-O(1)", "s": 10.88, "e": 11.85}, {"t": "—", "s": 11.85, "e": 12.04}, {"t": "מהיר", "s": 12.04, "e": 12.74}, {"t": "וקבוע", "s": 12.74, "e": 14.0}]}, {"start": 14.0, "end": 16.96, "text": "המחסנית עובדת לפי LIFO", "words": [{"t": "המחסנית", "s": 14.0, "e": 14.88}, {"t": "עובדת", "s": 14.88, "e": 15.26}, {"t": "לפי", "s": 15.26, "e": 15.6}, {"t": "LIFO", "s": 15.6, "e": 16.96}]}, {"start": 16.96, "end": 19.14, "text": "האחרון שנכנס הוא הראשון", "words": [{"t": "האחרון", "s": 16.96, "e": 17.84}, {"t": "שנכנס", "s": 17.84, "e": 18.42}, {"t": "הוא", "s": 18.42, "e": 18.7}, {"t": "הראשון", "s": 18.7, "e": 19.14}]}, {"start": 19.14, "end": 21.22, "text": "שיוצא כמו ערימת צלחות —", "words": [{"t": "שיוצא", "s": 19.14, "e": 19.68}, {"t": "כמו", "s": 19.68, "e": 20.26}, {"t": "ערימת", "s": 20.26, "e": 20.7}, {"t": "צלחות", "s": 20.7, "e": 21.13}, {"t": "—", "s": 21.13, "e": 21.22}]}, {"start": 21.22, "end": 23.18, "text": "מורידים מלמעלה", "words": [{"t": "מורידים", "s": 21.22, "e": 21.92}, {"t": "מלמעלה", "s": 21.92, "e": 23.18}]}, {"start": 23.18, "end": 25.16, "text": "התור עובד לפי FIFO", "words": [{"t": "התור", "s": 23.18, "e": 23.62}, {"t": "עובד", "s": 23.62, "e": 23.88}, {"t": "לפי", "s": 23.88, "e": 24.34}, {"t": "FIFO", "s": 24.34, "e": 25.16}]}, {"start": 25.16, "end": 27.14, "text": "הראשון שנכנס הוא הראשון", "words": [{"t": "הראשון", "s": 25.16, "e": 25.92}, {"t": "שנכנס", "s": 25.92, "e": 26.48}, {"t": "הוא", "s": 26.48, "e": 26.74}, {"t": "הראשון", "s": 26.74, "e": 27.14}]}, {"start": 27.14, "end": 29.14, "text": "שיוצא כמו תור בקופה —", "words": [{"t": "שיוצא", "s": 27.14, "e": 27.56}, {"t": "כמו", "s": 27.56, "e": 28.28}, {"t": "תור", "s": 28.28, "e": 28.62}, {"t": "בקופה", "s": 28.62, "e": 29.1}, {"t": "—", "s": 29.1, "e": 29.14}]}, {"start": 29.14, "end": 30.46, "text": "מי שהגיע ראשון", "words": [{"t": "מי", "s": 29.14, "e": 29.64}, {"t": "שהגיע", "s": 29.64, "e": 29.98}, {"t": "ראשון", "s": 29.98, "e": 30.46}]}, {"start": 30.46, "end": 31.66, "text": "יוצא ראשון", "words": [{"t": "יוצא", "s": 30.46, "e": 31.12}, {"t": "ראשון", "s": 31.12, "e": 31.66}]}, {"start": 31.66, "end": 32.61, "text": "זהו", "words": [{"t": "זהו", "s": 31.66, "e": 32.61}]}, {"start": 32.61, "end": 34.8, "text": "אותו מבנה אותו זמן —", "words": [{"t": "אותו", "s": 32.61, "e": 33.1}, {"t": "מבנה", "s": 33.1, "e": 33.64}, {"t": "אותו", "s": 33.64, "e": 34.2}, {"t": "זמן", "s": 34.2, "e": 34.72}, {"t": "—", "s": 34.72, "e": 34.8}]}, {"start": 34.8, "end": 36.84, "text": "ההבדל היחיד הוא מאיזה", "words": [{"t": "ההבדל", "s": 34.8, "e": 35.46}, {"t": "היחיד", "s": 35.46, "e": 35.9}, {"t": "הוא", "s": 35.9, "e": 36.04}, {"t": "מאיזה", "s": 36.04, "e": 36.84}]}, {"start": 36.84, "end": 38.14, "text": "קצה אתה מוציא", "words": [{"t": "קצה", "s": 36.84, "e": 37.38}, {"t": "אתה", "s": 37.38, "e": 37.66}, {"t": "מוציא", "s": 37.66, "e": 38.14}]}]}, "ifrs15_revenue_vs_cash": {"slug": "reel1_ifrs15_FULL", "duration": 36.56, "cues": [{"start": 0.28, "end": 1.76, "text": "קיבלת אלף מאתיים שקל", "words": [{"t": "קיבלת", "s": 0.28, "e": 0.68}, {"t": "אלף", "s": 0.68, "e": 0.85}, {"t": "מאתיים", "s": 0.85, "e": 1.2}, {"t": "שקל", "s": 1.2, "e": 1.76}]}, {"start": 1.76, "end": 2.38, "text": "מזומן", "words": [{"t": "מזומן", "s": 1.76, "e": 2.38}]}, {"start": 2.38, "end": 4.32, "text": "וההכנסה שתרשום היום", "words": [{"t": "וההכנסה", "s": 2.38, "e": 3.18}, {"t": "שתרשום", "s": 3.18, "e": 3.7}, {"t": "היום", "s": 3.7, "e": 4.32}]}, {"start": 4.32, "end": 5.56, "text": "אפס", "words": [{"t": "אפס", "s": 4.32, "e": 5.56}]}, {"start": 5.56, "end": 7.16, "text": "הלקוח שילם מראש", "words": [{"t": "הלקוח", "s": 5.56, "e": 6.32}, {"t": "שילם", "s": 6.32, "e": 6.64}, {"t": "מראש", "s": 6.64, "e": 7.16}]}, {"start": 7.16, "end": 8.2, "text": "על מנוי שנתי —", "words": [{"t": "על", "s": 7.16, "e": 7.32}, {"t": "מנוי", "s": 7.32, "e": 7.66}, {"t": "שנתי", "s": 7.66, "e": 8.08}, {"t": "—", "s": 8.08, "e": 8.2}]}, {"start": 8.2, "end": 9.48, "text": "הכסף בבנק", "words": [{"t": "הכסף", "s": 8.2, "e": 8.94}, {"t": "בבנק", "s": 8.94, "e": 9.48}]}, {"start": 9.48, "end": 11.7, "text": "אבל עוד לא סיפקת כלום", "words": [{"t": "אבל", "s": 9.48, "e": 9.84}, {"t": "עוד", "s": 9.84, "e": 10.04}, {"t": "לא", "s": 10.04, "e": 10.12}, {"t": "סיפקת", "s": 10.12, "e": 10.58}, {"t": "כלום", "s": 10.58, "e": 11.7}]}, {"start": 11.7, "end": 13.64, "text": "לפי IFRS 15", "words": [{"t": "לפי", "s": 11.7, "e": 12.08}, {"t": "IFRS", "s": 12.08, "e": 12.66}, {"t": "15", "s": 12.66, "e": 13.64}]}, {"start": 13.64, "end": 15.4, "text": "מקדמה היא לא הכנסה", "words": [{"t": "מקדמה", "s": 13.64, "e": 14.32}, {"t": "היא", "s": 14.32, "e": 14.58}, {"t": "לא", "s": 14.58, "e": 14.74}, {"t": "הכנסה", "s": 14.74, "e": 15.4}]}, {"start": 15.4, "end": 16.6, "text": "אלא התחייבות —", "words": [{"t": "אלא", "s": 15.4, "e": 15.8}, {"t": "התחייבות", "s": 15.8, "e": 16.48}, {"t": "—", "s": 16.48, "e": 16.6}]}, {"start": 16.6, "end": 18.18, "text": "הכנסה נדחית", "words": [{"t": "הכנסה", "s": 16.6, "e": 17.34}, {"t": "נדחית", "s": 17.34, "e": 18.18}]}, {"start": 18.18, "end": 20.09, "text": "מכירים בה טיפין-טיפין", "words": [{"t": "מכירים", "s": 18.18, "e": 18.94}, {"t": "בה", "s": 18.94, "e": 19.06}, {"t": "טיפין-טיפין", "s": 19.06, "e": 20.09}]}, {"start": 20.09, "end": 21.5, "text": "כמאה שקל בחודש", "words": [{"t": "כמאה", "s": 20.09, "e": 20.46}, {"t": "שקל", "s": 20.46, "e": 20.88}, {"t": "בחודש", "s": 20.88, "e": 21.5}]}, {"start": 21.5, "end": 23.82, "text": "ככל שמספקים את השירות", "words": [{"t": "ככל", "s": 21.5, "e": 21.98}, {"t": "שמספקים", "s": 21.98, "e": 22.6}, {"t": "את", "s": 22.6, "e": 22.72}, {"t": "השירות", "s": 22.72, "e": 23.82}]}, {"start": 23.82, "end": 24.68, "text": "וההפך", "words": [{"t": "וההפך", "s": 23.82, "e": 24.68}]}, {"start": 24.68, "end": 26.76, "text": "סיפקת ללקוח אחר את הכל", "words": [{"t": "סיפקת", "s": 24.68, "e": 25.38}, {"t": "ללקוח", "s": 25.38, "e": 25.86}, {"t": "אחר", "s": 25.86, "e": 26.22}, {"t": "את", "s": 26.22, "e": 26.34}, {"t": "הכל", "s": 26.34, "e": 26.76}]}, {"start": 26.76, "end": 27.64, "text": "אבל הוא ישלם", "words": [{"t": "אבל", "s": 26.76, "e": 27.06}, {"t": "הוא", "s": 27.06, "e": 27.2}, {"t": "ישלם", "s": 27.2, "e": 27.64}]}, {"start": 27.64, "end": 30.02, "text": "בעוד חודשיים — מזומן אפס", "words": [{"t": "בעוד", "s": 27.64, "e": 27.88}, {"t": "חודשיים", "s": 27.88, "e": 28.42}, {"t": "—", "s": 28.42, "e": 28.42}, {"t": "מזומן", "s": 28.42, "e": 29.44}, {"t": "אפס", "s": 29.44, "e": 30.02}]}, {"start": 30.02, "end": 32.46, "text": "הכנסה מלאה ונוצר חייב", "words": [{"t": "הכנסה", "s": 30.02, "e": 30.62}, {"t": "מלאה", "s": 30.62, "e": 31.1}, {"t": "ונוצר", "s": 31.1, "e": 31.92}, {"t": "חייב", "s": 31.92, "e": 32.46}]}, {"start": 32.46, "end": 34.38, "text": "לא המזומן קובע", "words": [{"t": "לא", "s": 32.46, "e": 33.3}, {"t": "המזומן", "s": 33.3, "e": 33.92}, {"t": "קובע", "s": 33.92, "e": 34.38}]}, {"start": 34.38, "end": 36.26, "text": "אלא מתי מחויבות הביצוע", "words": [{"t": "אלא", "s": 34.38, "e": 34.76}, {"t": "מתי", "s": 34.76, "e": 35.12}, {"t": "מחויבות", "s": 35.12, "e": 35.7}, {"t": "הביצוע", "s": 35.7, "e": 36.26}]}, {"start": 36.26, "end": 36.84, "text": "קוימה", "words": [{"t": "קוימה", "s": 36.26, "e": 36.84}]}]}};
+function cueAt(tr,t){for(const c of tr.cues){if(t>=c.start&&t<c.end)return c;}return null;}
+function awi(c,t){if(!c.words)return -1;for(let i=0;i<c.words.length;i++){if(t>=c.words[i].s&&t<c.words[i].e)return i;}return -1;}
+function render(el,cue,a){if(!cue){el.innerHTML="";return;}let h="";const W=cue.words||[];for(let i=0;i<W.length;i++){const on=i===a?" on":"";const sp=i<W.length-1?" ":"";h+='<span class="w'+on+'">'+(W[i].t||"")+sp+'</span>';}el.innerHTML=h;}
+document.querySelectorAll('video[data-slug]').forEach(function(v){
+  const slug=v.dataset.slug, tr=TRACKS[slug];
+  const cap=document.querySelector('.cap[data-slug="'+slug+'"]');
+  const prog=v.closest('.stage').querySelector('.progress');
+  let last={cue:null,a:-2};
+  // Draw the caption + progress for the CURRENT video time. Driven by three
+  // sources so it never goes dark: rAF (smooth karaoke when the tab is
+  // foreground), the video's own 'timeupdate' event AND a setInterval — the
+  // latter two keep firing when rAF is throttled (background/headless tab), so
+  // captions are robust regardless of tab visibility.
+  function paint(){const t=v.currentTime||0;const cue=tr?cueAt(tr,t):null;const a=cue?awi(cue,t):-1;if(last.cue!==cue||last.a!==a){last={cue,a};render(cap,cue,a);}if(v.duration)prog.style.width=(100*t/v.duration)+'%';}
+  function raf(){paint();requestAnimationFrame(raf);}
+  requestAnimationFrame(raf);
+  v.addEventListener('timeupdate',paint);
+  v.addEventListener('seeked',paint);
+  setInterval(paint,120);
+  function toggle(){document.querySelectorAll('video[data-slug]').forEach(o=>{if(o!==v)o.pause();});v.paused?v.play():v.pause();}
+  v.closest('.stage').addEventListener('click',toggle);
+});
+document.querySelectorAll('button.play[data-slug]').forEach(function(b){
+  b.addEventListener('click',function(){const v=document.querySelector('video[data-slug="'+b.dataset.slug+'"]');document.querySelectorAll('video[data-slug]').forEach(o=>{if(o!==v)o.pause();});v.paused?v.play():v.pause();});
+});
+</script>
+</body></html>

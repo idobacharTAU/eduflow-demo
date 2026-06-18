@@ -1,0 +1,14 @@
+{
+  "ds_stack_vs_queue": {
+    "visual_quality": true,
+    "frame_review": true,
+    "caption_sync": true,
+    "voice_diversity": true
+  },
+  "ifrs15_revenue_vs_cash": {
+    "visual_quality": true,
+    "frame_review": true,
+    "caption_sync": true,
+    "voice_diversity": true
+  }
+}

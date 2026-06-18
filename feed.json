@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "updated": "2026-06-18",
+  "courses": {
+    "demo-course-ml": {
+      "title": "מבוא ללמידת מכונה",
+      "subject": "CS",
+      "institution": "EduFlow",
+      "description": "כל מה שצריך לדעת על למידת מכונה — בלי המתמטיקה הכבדה. רילים קצרים, מושג אחד בכל פעם.",
+      "followerCount": 1284,
+      "isFollowing": true
+    },
+    "demo-course-ifrs": {
+      "title": "חשבונאות פיננסית — IFRS",
+      "subject": "Accounting",
+      "institution": "EduFlow",
+      "description": "תקני דיווח כספי בינלאומיים בגובה העיניים. IFRS 15/16/9 ו-IAS 23 — 90 שניות לכל נושא.",
+      "followerCount": 2156,
+      "isFollowing": true
+    },
+    "demo-course-ds": {
+      "title": "מבני נתונים",
+      "subject": "CS",
+      "institution": "EduFlow",
+      "description": "מבני הנתונים שכל מתכנת חייב — מחסנית, תור, רשימה מקושרת ומיון. מושג אחד, אנימציה אחת, דקה.",
+      "followerCount": 967,
+      "isFollowing": true,
+      "avatar": "poster:ds_stack_vs_queue"
+    },
+    "demo-course-c": {
+      "title": "תכנות בשפת C",
+      "subject": "CS",
+      "institution": "EduFlow",
+      "description": "שפת C בלי הפחד — מצביעים, זיכרון ורקורסיה. הדברים שמפילים בקורס, מוסברים ויזואלית.",
+      "followerCount": 712,
+      "isFollowing": true,
+      "avatar": "poster:c_pointers_basics"
+    },
+    "demo-course-da": {
+      "title": "ניתוח נתונים וסטטיסטיקה",
+      "subject": "Math",
+      "institution": "EduFlow",
+      "description": "סטטיסטיקה בגובה העיניים — p-value, משפט הגבול המרכזי ורווחי סמך. בלי נוסחאות מפחידות.",
+      "followerCount": 1043,
+      "isFollowing": true,
+      "avatar": "poster:da_pvalue"
+    }
+  },
+  "reels": [
+    { "slug": "stem_sqrt2", "topic": "למה האלכסון של ריבוע הוא שורש 2?", "courseId": "demo-course-ml" },
+    { "slug": "ds_stack_vs_queue", "topic": "מחסנית ותור נראות זהות — וכל ההבדל הוא מילה אחת: LIFO מול FIFO", "courseId": "demo-course-ds" },
+    { "slug": "ifrs15_revenue_vs_cash", "topic": "קיבלת 1,200 ש״ח — וההכנסה אפס?", "courseId": "demo-course-ifrs" },
+    { "slug": "c_pointers_basics", "topic": "מצביעים הפילו אותך? מצביע הוא פשוט משתנה שמחזיק כתובת", "courseId": "demo-course-c" },
+    { "slug": "da_pvalue", "topic": "מה p-value באמת אומר — ולמה זה לא מה שחשבת", "courseId": "demo-course-da" },
+    { "slug": "ds_merge_vs_quick", "topic": "אותו n log n בדיוק — ובכל זאת הייתי בוחר ביניהם הפוך", "courseId": "demo-course-ds" },
+    { "slug": "stem_supervised", "topic": "איך מחשב חוזה מחיר של בית שלא ראה?", "courseId": "demo-course-ml" },
+    { "slug": "ifrs15_five_steps", "topic": "5 השלבים להכרה בהכנסה", "courseId": "demo-course-ifrs" },
+    { "slug": "ds_linkedlist_vs_array", "topic": "רשימה מקושרת מוסיפה באמצע כמעט בחינם — אבל לחפש איבר עולה לך הכל", "courseId": "demo-course-ds" },
+    { "slug": "c_recursion_stack", "topic": "הרקורסיה קרסה תוך שנייה בלי שגיאה — היא חנקה את ה-call stack", "courseId": "demo-course-c" },
+    { "slug": "ifrs15_performance_obligation", "topic": "טלפון + חבילה = שתי מחויבויות", "courseId": "demo-course-ifrs" },
+    { "slug": "da_clt", "topic": "כל אוכלוסייה מעוותת — אבל ממוצעי המדגמים תמיד נותנים פעמון מושלם", "courseId": "demo-course-da" },
+    { "slug": "ias23_interest_becomes_asset", "topic": "מתי ריבית הופכת לנכס?", "courseId": "demo-course-ifrs" },
+    { "slug": "ias23_capitalization_rate", "topic": "שיעור ההיוון — ספציפי מול כללי", "courseId": "demo-course-ifrs" },
+    { "slug": "ias23_start_stop", "topic": "מתי מתחילים ומפסיקים להוון?", "courseId": "demo-course-ifrs" },
+    { "slug": "ifrs16_on_balance_sheet", "topic": "כל חכירה עולה למאזן", "courseId": "demo-course-ifrs" },
+    { "slug": "ifrs16_initial_measurement", "topic": "מדידה ראשונית של חכירה", "courseId": "demo-course-ifrs" },
+    { "slug": "ifrs16_pnl_frontloaded", "topic": "למה ההוצאה כבדה בהתחלה?", "courseId": "demo-course-ifrs" },
+    { "slug": "ifrs9_classification_logic", "topic": "לוגיקת הסיווג של מכשירים פיננסיים", "courseId": "demo-course-ifrs" },
+    { "slug": "ifrs9_expected_credit_loss", "topic": "הפסדי אשראי צפויים — ECL", "courseId": "demo-course-ifrs" },
+    { "slug": "ifrs9_sppi_test", "topic": "מבחן ה-SPPI ב-90 שניות", "courseId": "demo-course-ifrs" }
+  ]
+}

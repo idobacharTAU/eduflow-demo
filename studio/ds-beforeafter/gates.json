@@ -1,0 +1,38 @@
+{
+  "ds_stack_vs_queue": {
+    "visual_quality": true,
+    "frame_review": "NEEDS_HUMAN",
+    "caption_sync": true,
+    "voice_diversity": true
+  },
+  "c_pointers_basics": {
+    "visual_quality": true,
+    "frame_review": "NEEDS_HUMAN",
+    "caption_sync": true,
+    "voice_diversity": true
+  },
+  "da_pvalue": {
+    "visual_quality": true,
+    "frame_review": "NEEDS_HUMAN",
+    "caption_sync": true,
+    "voice_diversity": true
+  },
+  "ds_linkedlist_vs_array": {
+    "visual_quality": true,
+    "frame_review": "NEEDS_HUMAN",
+    "caption_sync": true,
+    "voice_diversity": true
+  },
+  "c_recursion_stack": {
+    "visual_quality": true,
+    "frame_review": "NEEDS_HUMAN",
+    "caption_sync": true,
+    "voice_diversity": true
+  },
+  "da_clt": {
+    "visual_quality": true,
+    "frame_review": "NEEDS_HUMAN",
+    "caption_sync": false,
+    "voice_diversity": true
+  }
+}

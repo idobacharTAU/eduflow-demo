@@ -32,7 +32,7 @@
   "da_clt": {
     "visual_quality": true,
     "frame_review": "NEEDS_HUMAN",
-    "caption_sync": false,
+    "caption_sync": true,
     "voice_diversity": true
   }
 }

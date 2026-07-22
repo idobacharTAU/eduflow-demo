@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>EduFlow — השוואת רילים: מקור מול מוקטן</title>
+<style>
+  :root{ --bg:#0c0f14; --card:#151a22; --hair:#28313d; --ink:#eef2f7; --muted:#93a0b1;
+    --new:#4fce8c; --new-bg:#123024; --orig:#e6a33a; --orig-bg:#33260f; --accent:#6f9bff; }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"SF Hebrew","Arial Hebrew","Segoe UI",system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;padding:16px 14px 48px;line-height:1.5}
+  .wrap{max-width:560px;margin:0 auto}
+  header h1{font-size:20px;font-weight:800;margin:0 0 6px;letter-spacing:-.01em}
+  header p{color:var(--muted);font-size:14px;margin:0 0 4px}
+  header .hint{color:var(--muted);font-size:13px;margin-top:8px;padding:10px 12px;background:var(--card);border:1px solid var(--hair);border-radius:10px}
+  .reel{margin-top:22px;background:var(--card);border:1px solid var(--hair);border-radius:16px;overflow:hidden}
+  .reel .cap{padding:12px 14px 10px}
+  .reel .cap h2{font-size:15px;font-weight:700;margin:0 0 2px}
+  .reel .cap .sub{color:var(--muted);font-size:12.5px}
+  .reel video{display:block;width:100%;background:#000;aspect-ratio:9/16;max-height:70vh;object-fit:contain;margin:0 auto}
+  .toggle{display:flex;gap:8px;padding:12px 14px 14px}
+  .toggle button{flex:1;font:inherit;font-size:13.5px;font-weight:700;padding:11px 8px;border-radius:11px;
+    border:1px solid var(--hair);background:transparent;color:var(--muted);cursor:pointer;-webkit-tap-highlight-color:transparent}
+  .toggle button .sz{display:block;font-size:11px;font-weight:600;opacity:.8;margin-top:2px}
+  .toggle button.on[data-kind="new"]{background:var(--new-bg);color:var(--new);border-color:var(--new)}
+  .toggle button.on[data-kind="orig"]{background:var(--orig-bg);color:var(--orig);border-color:var(--orig)}
+  footer{color:var(--muted);font-size:12px;margin-top:26px;text-align:center;line-height:1.7}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>השוואת רילים — מקור מול מוקטן</h1>
+    <p>3 רילים, שלושה סוגי-תוכן. כל אחד: המקור הכבד מול הגרסה הקלה (720p).</p>
+    <div class="hint">הקש <b>מקור</b> / <b>חדש</b> להחליף — הווידאו ממשיך מאותה נקודה. השאלה: <b>החדש מספיק טוב?</b> (המהירות תורגש רק כשזה חי; פה שופטים איכות.)</div>
+  </header>
+
+  <div class="reel">
+    <div class="cap"><h2>1 · חשבונאות — IFRS 13 (b-roll)</h2><div class="sub">מקור 54MB · חדש 10.5MB · פי-5 קל</div></div>
+    <video playsinline controls preload="metadata"
+      src="./reel1_accounting_ifrs13_720.mp4"
+      data-new="./reel1_accounting_ifrs13_720.mp4"
+      data-orig="https://idobachartau.github.io/eduflow-demo/reels/ifrs13_highest_best_use.mp4"></video>
+    <div class="toggle">
+      <button data-kind="new" class="on">חדש · 720p<span class="sz">10.5MB</span></button>
+      <button data-kind="orig">מקור · 1080p<span class="sz">54MB</span></button>
+    </div>
+  </div>
+
+  <div class="reel">
+    <div class="cap"><h2>2 · DS — משפט הגבול המרכזי (דיאגרמה + טקסט)</h2><div class="sub">מקור 11.9MB · חדש 2.7MB · פי-4 קל — מבחן החדות של הטקסט</div></div>
+    <video playsinline controls preload="metadata"
+      src="./reel2_DS_clt_720.mp4"
+      data-new="./reel2_DS_clt_720.mp4"
+      data-orig="https://idobachartau.github.io/eduflow-demo/reels/da_clt.mp4"></video>
+    <div class="toggle">
+      <button data-kind="new" class="on">חדש · 720p<span class="sz">2.7MB</span></button>
+      <button data-kind="orig">מקור · 1080p<span class="sz">11.9MB</span></button>
+    </div>
+  </div>
+
+  <div class="reel">
+    <div class="cap"><h2>3 · פסיכומטרי — אנלוגיות (b-roll)</h2><div class="sub">מקור 22.5MB · חדש 4.6MB · פי-5 קל</div></div>
+    <video playsinline controls preload="metadata"
+      src="./reel3_psychometric_analogies_720.mp4"
+      data-new="./reel3_psychometric_analogies_720.mp4"
+      data-orig="https://idobachartau.github.io/eduflow-demo/reels/psyv_analogies_degree_of.mp4"></video>
+    <div class="toggle">
+      <button data-kind="new" class="on">חדש · 720p<span class="sz">4.6MB</span></button>
+      <button data-kind="orig">מקור · 1080p<span class="sz">22.5MB</span></button>
+    </div>
+  </div>
+
+  <footer>EduFlow · השוואה פנימית · בינינו<br>אם החדש נראה לך זהה — זה GO להריץ על כל הספרייה.</footer>
+</div>
+
+<script>
+document.querySelectorAll(".reel").forEach(function(card){
+  var v = card.querySelector("video");
+  var btns = card.querySelectorAll("button[data-kind]");
+  btns.forEach(function(b){
+    b.addEventListener("click", function(){
+      if (b.classList.contains("on")) return;
+      var kind = b.getAttribute("data-kind");
+      var nextSrc = (kind === "orig") ? v.getAttribute("data-orig") : v.getAttribute("data-new");
+      var t = v.currentTime || 0, wasPlaying = !v.paused && !v.ended;
+      btns.forEach(function(x){ x.classList.remove("on"); });
+      b.classList.add("on");
+      v.setAttribute("src", nextSrc);
+      var onmeta = function(){
+        try { v.currentTime = t; } catch(e){}
+        if (wasPlaying) { var p = v.play(); if (p && p.catch) p.catch(function(){}); }
+        v.removeEventListener("loadedmetadata", onmeta);
+      };
+      v.addEventListener("loadedmetadata", onmeta);
+      v.load();
+    });
+  });
+});
+</script>
+</body>
+</html>

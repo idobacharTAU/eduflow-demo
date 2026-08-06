@@ -88,7 +88,7 @@
 </head>
 <body>
 <div class="wrap">
-  <div class="nb">🆕 <b>סבב-2: 4 קולות חדשים (<span dir="ltr">v12–v15</span>)</b> — הם למעלה ומסומנים "חדש". <b>דרג רק אותם</b> — הציונים שנתת ל-11 הקולות הקודמים כבר טעונים כאן ונשלחים יחד איתם — אין צורך לחזור עליהם. <span id="nprog"></span></div>
+  <div class="nb">🆕 <b>סבב-2: 4 קולות חדשים (<span dir="ltr">v12–v15</span>)</b> — הם למעלה ומסומנים "חדש". <b>דרג רק אותם</b> — הציונים שנתת ל-<span id="keptn">11</span> הקולות הקודמים טעונים כאן ונשלחים יחד איתם — אין צורך לחזור עליהם. <span id="nprog"></span></div>
   <h1>אודישן קולות — סבב 2 (עיוור)</h1>
   <p class="sub">15 מועמדים, כולם ‎$0. לכל אחד <b>שני</b> קטעים: משפט-בוחן קצר, וקטע מנרטיב של ריל
      פסיכומטרי אמיתי. אין שמות — רק v01, v02… תן ציון ‎1–10 לכל קול, סמן ★ עד שלושה,
@@ -294,12 +294,12 @@ function topCount(){
 function refresh(){
   var done = 0, doneNew = 0;
   Array.prototype.forEach.call(document.querySelectorAll(".card"), function(card){
-    var l = card.getAttribute("data-label"), e = state[l] || {};
-    if (e.score) { done++; if (card.getAttribute("data-new")) doneNew++; }
-    card.classList.toggle("done", !!e.score);
+    var l = card.getAttribute("data-label"), e = state[l] || {}, sc = scoreOf(l);
+    if (sc) { done++; if (card.getAttribute("data-new")) doneNew++; }
+    card.classList.toggle("done", !!sc);
     card.classList.toggle("top", !!e.top);
     Array.prototype.forEach.call(card.querySelectorAll(".sc"), function(b){
-      b.setAttribute("aria-pressed", (e.score === +b.getAttribute("data-score")) ? "true" : "false");
+      b.setAttribute("aria-pressed", (sc === +b.getAttribute("data-score")) ? "true" : "false");
     });
     var st = card.querySelector(".star");
     st.setAttribute("aria-pressed", e.top ? "true" : "false");
@@ -310,6 +310,12 @@ function refresh(){
   document.getElementById("pfill").style.width = (100 * done / ITEMS.length) + "%";
   var np = document.getElementById("nprog");
   if (np && NEWN) np.textContent = "(" + doneNew + "/" + NEWN + " חדשים דורגו)";
+  var kn = document.getElementById("keptn");
+  if (kn) {
+    var kept = 0;
+    Object.keys(PRIOR).forEach(function(l){ if (scoreOf(l)) kept++; });
+    kn.textContent = kept;
+  }
   document.getElementById("vtext").value = verdictString();
 }
 
@@ -317,11 +323,22 @@ function refresh(){
 // against session.json — keep it in label order so it lines up with round-1's.
 var BY_LABEL = ITEMS.slice().sort(function(a, b){ return a.l < b.l ? -1 : 1; });
 
+// scoreOf is the ONLY way any surface reads a score. A committed round-1 score is a
+// fact the Owner already sent from his phone; this page may let him CHANGE it, never
+// silently lose it. Score buttons are de-select toggles, so one stray tap on a lit
+// seeded card used to delete the score from the string, the counter and the export —
+// two taps from a clean load to a 10-of-15 verdict that still looked complete.
+// PRIOR therefore backfills at read time, not just at seed time.
+function scoreOf(l){
+  var e = state[l] || {};
+  return e.score || PRIOR[l] || 0;
+}
+
 function verdictString(){
   var scores = [], tops = [], notes = [];
   BY_LABEL.forEach(function(it){
-    var e = state[it.l] || {};
-    if (e.score) scores.push(it.l + ":" + e.score);
+    var e = state[it.l] || {}, sc = scoreOf(it.l);
+    if (sc) scores.push(it.l + ":" + sc);
     if (e.top) tops.push(it.l);
     if (e.note) notes.push(it.l + " " + e.note);
   });
@@ -403,8 +420,9 @@ document.getElementById("dl").addEventListener("click", function(){
   var out = { audition:"voices-r2", answered_at:new Date().toISOString(),
               verdict_string: verdictString(), cards:{} };
   BY_LABEL.forEach(function(it){
-    var e = state[it.l] || {}; var o = {};
-    if (e.score) o.score = e.score;
+    var e = state[it.l] || {}; var o = {}; var sc = scoreOf(it.l);
+    if (sc) o.score = sc;
+    if (sc && !e.score && PRIOR[it.l]) o.from_committed_round1 = true;
     if (e.top) o.top = true;
     if (e.note) o.note = e.note;
     if (Object.keys(o).length) out.cards[it.l] = o;

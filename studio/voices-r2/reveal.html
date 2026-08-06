@@ -17,9 +17,18 @@
   .rev{display:flex;gap:12px;background:var(--panel);border:1px solid var(--line);
        border-radius:12px;padding:12px 13px;margin-bottom:11px}
   .rl{font-weight:800;font-size:17px;direction:ltr;color:var(--green);min-width:38px}
-  .rb b{font-size:15.5px}
+  /* `.rb b` sizes the CARD TITLE. It must not reach the <b> that _rich() now emits
+     inside body copy — that inherited the 15.5px title size into 12.5px list text and
+     rendered emphasis 24% oversized mid-sentence. Scoped to the title's own child. */
+  .rb > b{font-size:15.5px}
   .rs{color:var(--fog);font-size:12.5px;margin-top:2px}
   ul.cav{margin:7px 0 0;padding-inline-start:18px;color:var(--gold);font-size:12.5px}
+  /* Caveats quote verbatim API tokens (e.g. a 49-char quota id) with no break
+     opportunity; without this they paint past the card edge on a 390px phone. */
+  ul.cav li,ul.plain li{overflow-wrap:anywhere;word-break:break-word}
+  ul.cav b,ul.plain b,.rs b{font-size:inherit}
+  ul.cav code,ul.plain code,.rs code{font-size:inherit;font-family:ui-monospace,Menlo,monospace;
+       background:rgba(255,255,255,.07);border-radius:4px;padding:0 4px}
   ul.plain{padding-inline-start:18px;color:var(--rim);font-size:13.5px}
   a{color:var(--green)}
 </style>

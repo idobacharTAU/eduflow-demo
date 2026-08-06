@@ -34,12 +34,19 @@
   .prog b{color:var(--white)}
   .pbar{flex:1;height:5px;background:#0d1224;border-radius:3px;overflow:hidden}
   .pbar i{display:block;height:100%;width:0;background:var(--green);transition:width .2s}
+  .nb{background:rgba(84,168,255,.12);border:1px solid rgba(84,168,255,.5);
+      border-radius:12px;padding:11px 13px;margin:0 0 16px;font-size:14.5px;color:var(--rim)}
+  .nb b{color:var(--white)}
+  .nb #nprog{color:var(--blue);font-weight:700;white-space:nowrap}
   .card{background:var(--panel);border:1px solid var(--line);border-radius:13px;
         padding:13px 14px;margin-bottom:15px}
   .card.done{border-color:rgba(75,208,139,.55)}
   .card.top{box-shadow:0 0 0 2px rgba(232,176,75,.45)}
+  .card.fresh{border-color:rgba(84,168,255,.6);background:var(--panel2)}
   .chead{display:flex;align-items:center;gap:10px;margin-bottom:9px}
   .lbl{font-weight:800;font-size:18px;letter-spacing:.5px;direction:ltr}
+  .chip{background:var(--blue);color:#02152c;font-size:11.5px;font-weight:800;
+        border-radius:20px;padding:2px 9px}
   .star{margin-inline-start:auto;min-width:96px;min-height:44px;border-radius:10px;
         background:#0d1224;color:var(--white);border:1px solid #2b3765;
         font-size:14px;cursor:pointer}
@@ -51,6 +58,11 @@
   .sc{flex:1 1 auto;min-width:44px;min-height:44px;border-radius:9px;background:#0d1224;
       color:var(--white);border:1px solid #2b3765;font-size:15px;cursor:pointer;padding:0}
   .sc[aria-pressed="true"]{background:var(--blue);color:#02152c;border-color:var(--blue);font-weight:800}
+  /* 16px is NOT a taste choice on either of the two focusable fields (.nt, .verdict):
+     iOS Safari auto-zooms the viewport when a focused input's font-size is under
+     16px, and this page is judged from a phone. The shipped round-1 page carries
+     16px; the template did not, so a rebuild would have silently re-introduced
+     the zoom. Do not "tidy" these down. */
   .nt{width:100%;background:#0d1224;border:1px solid #2b3765;border-radius:9px;
       color:var(--white);padding:9px 11px;font-size:16px;font-family:inherit}
   .hint{color:var(--fog);font-size:12.5px;margin:2px 0 0}
@@ -76,8 +88,9 @@
 </head>
 <body>
 <div class="wrap">
+  <div class="nb">🆕 <b>סבב-2: 4 קולות חדשים (<span dir="ltr">v12–v15</span>)</b> — הם למעלה ומסומנים "חדש". <b>דרג רק אותם</b> — הציונים שנתת קודם נשמרו ואין צורך לחזור עליהם. <span id="nprog"></span></div>
   <h1>אודישן קולות — סבב 2 (עיוור)</h1>
-  <p class="sub">11 מועמדים, כולם ‎$0. לכל אחד <b>שני</b> קטעים: משפט-בוחן קצר, וקטע מנרטיב של ריל
+  <p class="sub">15 מועמדים, כולם ‎$0. לכל אחד <b>שני</b> קטעים: משפט-בוחן קצר, וקטע מנרטיב של ריל
      פסיכומטרי אמיתי. אין שמות — רק v01, v02… תן ציון ‎1–10 לכל קול, סמן ★ עד שלושה,
      ובסוף כפתור אחד שולח לי את הפסיקה.</p>
 
@@ -90,7 +103,7 @@
   </div>
 
   <div class="prog">
-    <span>דורגו <b id="cnt">0</b>/11</span>
+    <span>דורגו <b id="cnt">0</b>/15</span>
     <span class="pbar"><i id="pfill"></i></span>
     <span>★ <b id="tcnt">0</b>/3</span>
   </div>
@@ -117,61 +130,97 @@
 "use strict";
 var ITEMS = [
  {
+  "l": "v12",
+  "std": "media/v12__std.mp3",
+  "seg": "media/v12__seg.mp3",
+  "new": true
+ },
+ {
+  "l": "v13",
+  "std": "media/v13__std.mp3",
+  "seg": "media/v13__seg.mp3",
+  "new": true
+ },
+ {
+  "l": "v14",
+  "std": "media/v14__std.mp3",
+  "seg": "media/v14__seg.mp3",
+  "new": true
+ },
+ {
+  "l": "v15",
+  "std": "media/v15__std.mp3",
+  "seg": "media/v15__seg.mp3",
+  "new": true
+ },
+ {
   "l": "v01",
   "std": "media/v01__std.mp3",
-  "seg": "media/v01__seg.mp3"
+  "seg": "media/v01__seg.mp3",
+  "new": false
  },
  {
   "l": "v02",
   "std": "media/v02__std.mp3",
-  "seg": "media/v02__seg.mp3"
+  "seg": "media/v02__seg.mp3",
+  "new": false
  },
  {
   "l": "v03",
   "std": "media/v03__std.mp3",
-  "seg": "media/v03__seg.mp3"
+  "seg": "media/v03__seg.mp3",
+  "new": false
  },
  {
   "l": "v04",
   "std": "media/v04__std.mp3",
-  "seg": "media/v04__seg.mp3"
+  "seg": "media/v04__seg.mp3",
+  "new": false
  },
  {
   "l": "v05",
   "std": "media/v05__std.mp3",
-  "seg": "media/v05__seg.mp3"
+  "seg": "media/v05__seg.mp3",
+  "new": false
  },
  {
   "l": "v06",
   "std": "media/v06__std.mp3",
-  "seg": "media/v06__seg.mp3"
+  "seg": "media/v06__seg.mp3",
+  "new": false
  },
  {
   "l": "v07",
   "std": "media/v07__std.mp3",
-  "seg": "media/v07__seg.mp3"
+  "seg": "media/v07__seg.mp3",
+  "new": false
  },
  {
   "l": "v08",
   "std": "media/v08__std.mp3",
-  "seg": "media/v08__seg.mp3"
+  "seg": "media/v08__seg.mp3",
+  "new": false
  },
  {
   "l": "v09",
   "std": "media/v09__std.mp3",
-  "seg": "media/v09__seg.mp3"
+  "seg": "media/v09__seg.mp3",
+  "new": false
  },
  {
   "l": "v10",
   "std": "media/v10__std.mp3",
-  "seg": "media/v10__seg.mp3"
+  "seg": "media/v10__seg.mp3",
+  "new": false
  },
  {
   "l": "v11",
   "std": "media/v11__std.mp3",
-  "seg": "media/v11__seg.mp3"
+  "seg": "media/v11__seg.mp3",
+  "new": false
  }
 ];
+var NEWN = 4;
 var CONTEXT = "media/context_current_reel.mp4";
 var POSTER = "media/context_current_reel.jpg";
 var KEY = "eduflow_voice_audition_r2";
@@ -194,8 +243,9 @@ var list = document.getElementById("list");
 ITEMS.forEach(function(it){
   var e = state[it.l] || {};
   var card = document.createElement("div");
-  card.className = "card";
+  card.className = it.new ? "card fresh" : "card";
   card.setAttribute("data-label", it.l);
+  if (it.new) card.setAttribute("data-new", "1");
 
   var scale = "";
   for (var n = 1; n <= 10; n++) {
@@ -204,6 +254,7 @@ ITEMS.forEach(function(it){
   }
   card.innerHTML =
     '<div class="chead"><span class="lbl">' + it.l + '</span>' +
+    (it.new ? '<span class="chip">חדש</span>' : '') +
     '<button class="star" aria-pressed="' + (e.top ? "true" : "false") + '">' +
       (e.top ? "★ טופ-3" : "☆ טופ-3") + '</button></div>' +
     '<div class="plr"><span>' + LBL.std + '</span>' +
@@ -221,10 +272,10 @@ function topCount(){
   return Object.keys(state).filter(function(k){ return state[k] && state[k].top; }).length;
 }
 function refresh(){
-  var done = 0;
+  var done = 0, doneNew = 0;
   Array.prototype.forEach.call(document.querySelectorAll(".card"), function(card){
     var l = card.getAttribute("data-label"), e = state[l] || {};
-    if (e.score) done++;
+    if (e.score) { done++; if (card.getAttribute("data-new")) doneNew++; }
     card.classList.toggle("done", !!e.score);
     card.classList.toggle("top", !!e.top);
     Array.prototype.forEach.call(card.querySelectorAll(".sc"), function(b){
@@ -237,12 +288,18 @@ function refresh(){
   document.getElementById("cnt").textContent = done;
   document.getElementById("tcnt").textContent = topCount();
   document.getElementById("pfill").style.width = (100 * done / ITEMS.length) + "%";
+  var np = document.getElementById("nprog");
+  if (np && NEWN) np.textContent = "(" + doneNew + "/" + NEWN + " חדשים דורגו)";
   document.getElementById("vtext").value = verdictString();
 }
 
+// The page shows the new cards first, but the verdict string is read by a human
+// against session.json — keep it in label order so it lines up with round-1's.
+var BY_LABEL = ITEMS.slice().sort(function(a, b){ return a.l < b.l ? -1 : 1; });
+
 function verdictString(){
   var scores = [], tops = [], notes = [];
-  ITEMS.forEach(function(it){
+  BY_LABEL.forEach(function(it){
     var e = state[it.l] || {};
     if (e.score) scores.push(it.l + ":" + e.score);
     if (e.top) tops.push(it.l);
@@ -325,7 +382,7 @@ function tryClipboard(txt){
 document.getElementById("dl").addEventListener("click", function(){
   var out = { audition:"voices-r2", answered_at:new Date().toISOString(),
               verdict_string: verdictString(), cards:{} };
-  ITEMS.forEach(function(it){
+  BY_LABEL.forEach(function(it){
     var e = state[it.l] || {}; var o = {};
     if (e.score) o.score = e.score;
     if (e.top) o.top = true;

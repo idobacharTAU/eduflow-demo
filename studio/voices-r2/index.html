@@ -88,7 +88,7 @@
 </head>
 <body>
 <div class="wrap">
-  <div class="nb">🆕 <b>סבב-2: 4 קולות חדשים (<span dir="ltr">v12–v15</span>)</b> — הם למעלה ומסומנים "חדש". <b>דרג רק אותם</b> — הציונים שנתת קודם נשמרו ואין צורך לחזור עליהם. <span id="nprog"></span></div>
+  <div class="nb">🆕 <b>סבב-2: 4 קולות חדשים (<span dir="ltr">v12–v15</span>)</b> — הם למעלה ומסומנים "חדש". <b>דרג רק אותם</b> — הציונים שנתת ל-11 הקולות הקודמים כבר טעונים כאן ונשלחים יחד איתם — אין צורך לחזור עליהם. <span id="nprog"></span></div>
   <h1>אודישן קולות — סבב 2 (עיוור)</h1>
   <p class="sub">15 מועמדים, כולם ‎$0. לכל אחד <b>שני</b> קטעים: משפט-בוחן קצר, וקטע מנרטיב של ריל
      פסיכומטרי אמיתי. אין שמות — רק v01, v02… תן ציון ‎1–10 לכל קול, סמן ★ עד שלושה,
@@ -229,6 +229,26 @@ var LBL = {std:"משפט-בוחן", seg:"קטע מריל אמיתי"};
 
 var state = {};
 try { state = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch(e){ state = {}; }
+
+// PRIOR is the Owner's committed round-1 verdict (answers.json, in git), baked in at
+// build time. Without it the page's promise "your earlier scores were kept" is false
+// on any device but the one he graded from: localStorage is per-origin-per-device, and
+// the verdict string only emits labels that carry a score — so a clean profile would
+// have shipped 4 of 15 silently. Seeding is one-way and never overwrites: a score he
+// enters now wins, and PRIOR only fills a label he has not touched here.
+var PRIOR = {"v01": 2, "v02": 3, "v03": 3, "v04": 1, "v05": 5, "v06": 1, "v07": 4, "v08": 1, "v09": 3, "v10": 2, "v11": 2};
+(function seedPrior(){
+  var seeded = 0;
+  Object.keys(PRIOR).forEach(function(l){
+    if (!state[l] || !state[l].score) {
+      state[l] = state[l] || {};
+      state[l].score = PRIOR[l];
+      state[l].fromCommitted = true;
+      seeded++;
+    }
+  });
+  if (seeded) { try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
+})();
 function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
 function ent(l){ state[l] = state[l] || {}; return state[l]; }
 

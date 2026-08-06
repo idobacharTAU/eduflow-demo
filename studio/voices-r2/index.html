@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>אודישן קולות · סבב 2 — עיוור</title>
+<style>
+  :root{ --bg:#0A0C16; --panel:#141B33; --panel2:#1B2445; --rim:#CFE0FF; --fog:#8C95BC;
+    --white:#EDF0FB; --green:#4BD08B; --blue:#54A8FF; --gold:#E8B04B; --line:#24305a; }
+  *{box-sizing:border-box}
+  /* dark-render the NATIVE <audio> controls: without this the browser paints
+     them light-on-white against a near-black panel — 22 bright bars down a dark
+     page. It also darkens scrollbars. */
+  html{color-scheme:dark}
+  html,body{margin:0;padding:0}
+  body{background:var(--bg);color:var(--white);
+       font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+       -webkit-text-size-adjust:100%}
+  .wrap{max-width:760px;margin:0 auto;padding:20px 16px 200px}
+  h1{font-size:23px;margin:0 0 6px}
+  .sub{color:var(--fog);font-size:14.5px;margin:0 0 16px}
+  .quote{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+         padding:10px 13px;margin:0 0 10px;color:var(--rim);font-size:14.5px}
+  .quote b{color:var(--white);font-size:13px;display:block;margin-bottom:3px}
+  .ctx{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+       padding:12px;margin:0 0 22px}
+  .ctx h2{font-size:15.5px;margin:0 0 4px;color:var(--gold)}
+  .ctx p{margin:0 0 9px;font-size:13.5px;color:var(--fog)}
+  .ctx video{width:100%;max-height:52vh;border-radius:9px;background:#000;display:block}
+  .prog{position:sticky;top:0;z-index:20;background:rgba(10,12,22,.95);
+        backdrop-filter:blur(8px);border-bottom:1px solid var(--line);
+        margin:0 -16px 16px;padding:9px 16px;font-size:13.5px;color:var(--fog);
+        display:flex;gap:10px;align-items:center}
+  .prog b{color:var(--white)}
+  .pbar{flex:1;height:5px;background:#0d1224;border-radius:3px;overflow:hidden}
+  .pbar i{display:block;height:100%;width:0;background:var(--green);transition:width .2s}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:13px;
+        padding:13px 14px;margin-bottom:15px}
+  .card.done{border-color:rgba(75,208,139,.55)}
+  .card.top{box-shadow:0 0 0 2px rgba(232,176,75,.45)}
+  .chead{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+  .lbl{font-weight:800;font-size:18px;letter-spacing:.5px;direction:ltr}
+  .star{margin-inline-start:auto;min-width:96px;min-height:44px;border-radius:10px;
+        background:#0d1224;color:var(--white);border:1px solid #2b3765;
+        font-size:14px;cursor:pointer}
+  .star[aria-pressed="true"]{background:var(--gold);color:#241701;border-color:var(--gold);font-weight:800}
+  .plr{margin-bottom:9px}
+  .plr span{display:block;font-size:12.5px;color:var(--fog);margin-bottom:3px}
+  audio{width:100%;height:40px}
+  .scale{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 9px}
+  .sc{flex:1 1 auto;min-width:44px;min-height:44px;border-radius:9px;background:#0d1224;
+      color:var(--white);border:1px solid #2b3765;font-size:15px;cursor:pointer;padding:0}
+  .sc[aria-pressed="true"]{background:var(--blue);color:#02152c;border-color:var(--blue);font-weight:800}
+  .nt{width:100%;background:#0d1224;border:1px solid #2b3765;border-radius:9px;
+      color:var(--white);padding:9px 11px;font-size:14px;font-family:inherit}
+  .hint{color:var(--fog);font-size:12.5px;margin:2px 0 0}
+  .bar{position:fixed;inset-inline:0;bottom:0;z-index:30;background:rgba(10,12,22,.97);
+       border-top:1px solid var(--line);padding:11px 16px calc(11px + env(safe-area-inset-bottom));
+       display:flex;flex-direction:column;gap:8px}
+  .bar .row{display:flex;gap:9px}
+  .bar button{flex:1;min-height:48px;border-radius:11px;border:0;cursor:pointer;
+              font-size:15.5px;font-weight:700;background:var(--green);color:#05230f}
+  .bar button.alt{background:#1B2445;color:var(--white);border:1px solid #2b3765;
+                  font-weight:600;font-size:14px;flex:0 0 auto;padding:0 16px}
+  .verdict{width:100%;background:#0d1224;border:1px solid #2b3765;border-radius:9px;
+           color:var(--rim);padding:8px 10px;font-size:12.5px;font-family:ui-monospace,Menlo,monospace;
+           direction:ltr;text-align:left;resize:none;height:54px}
+  .sent{background:rgba(75,208,139,.1);border:1px solid rgba(75,208,139,.4);
+        border-radius:10px;padding:11px 13px;margin:16px 0 0;font-size:14px;color:var(--rim);display:none}
+  .sent a{color:var(--green)}
+  .toast{position:fixed;inset-inline:0;bottom:150px;z-index:40;text-align:center;
+         font-size:14px;pointer-events:none;opacity:0;transition:opacity .25s}
+  .toast span{background:var(--green);color:#05230f;border-radius:20px;padding:8px 18px;font-weight:700}
+  .toast.on{opacity:1}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>אודישן קולות — סבב 2 (עיוור)</h1>
+  <p class="sub">11 מועמדים, כולם ‎$0. לכל אחד <b>שני</b> קטעים: משפט-בוחן קצר, וקטע מנרטיב של ריל
+     פסיכומטרי אמיתי. אין שמות — רק v01, v02… תן ציון ‎1–10 לכל קול, סמן ★ עד שלושה,
+     ובסוף כפתור אחד שולח לי את הפסיקה.</p>
+
+  <div class="quote"><b>משפט-בוחן</b>נסעת צפונה במהירות שישים, וחזרת באותו כביש במהירות ארבעים. מה המהירות הממוצעת? חמישים? לא בדיוק.</div>
+  <div class="quote"><b>קטע מריל אמיתי</b>בדרך האיטית בילית יותר זמן — אז היא שוקלת יותר. נניח מאה עשרים קילומטר לכל כיוון. הלוך: שעתיים. חזור: שלוש שעות. מאתיים ארבעים קילומטר בחמש שעות — ארבעים ושמונה. המהירות הממוצעת נמשכת תמיד לכיוון האיטי.</div>
+
+  <div class="ctx" id="ctxCard">
+    <h2>כך זה נשמע היום (הקול הנוכחי)</h2>
+    <p>ריל משוגר, לא-עיוור — נקודת-הייחוס להשוואה.</p>
+  </div>
+
+  <div class="prog">
+    <span>דורגו <b id="cnt">0</b>/11</span>
+    <span class="pbar"><i id="pfill"></i></span>
+    <span>★ <b id="tcnt">0</b>/3</span>
+  </div>
+
+  <div id="list"></div>
+
+  <div class="sent" id="sentBox">
+    ✅ הפסיקה מוכנה. אם השיתוף לא נפתח — הטקסט למטה כבר בלוח, אפשר להדביק בוואטסאפ.
+    <div style="margin-top:8px">רוצה לראות מי היה מי? <a href="reveal.html">פתח את החשיפה</a></div>
+  </div>
+</div>
+
+<div class="bar">
+  <textarea class="verdict" id="vtext" readonly></textarea>
+  <div class="row">
+    <button id="send">שלח פסיקה</button>
+    <button class="alt" id="dl">הורד JSON</button>
+  </div>
+</div>
+<div class="toast" id="toast"><span>הועתק ללוח</span></div>
+
+<script>
+(function(){
+"use strict";
+var ITEMS = [
+ {
+  "l": "v01",
+  "std": "media/v01__std.mp3",
+  "seg": "media/v01__seg.mp3"
+ },
+ {
+  "l": "v02",
+  "std": "media/v02__std.mp3",
+  "seg": "media/v02__seg.mp3"
+ },
+ {
+  "l": "v03",
+  "std": "media/v03__std.mp3",
+  "seg": "media/v03__seg.mp3"
+ },
+ {
+  "l": "v04",
+  "std": "media/v04__std.mp3",
+  "seg": "media/v04__seg.mp3"
+ },
+ {
+  "l": "v05",
+  "std": "media/v05__std.mp3",
+  "seg": "media/v05__seg.mp3"
+ },
+ {
+  "l": "v06",
+  "std": "media/v06__std.mp3",
+  "seg": "media/v06__seg.mp3"
+ },
+ {
+  "l": "v07",
+  "std": "media/v07__std.mp3",
+  "seg": "media/v07__seg.mp3"
+ },
+ {
+  "l": "v08",
+  "std": "media/v08__std.mp3",
+  "seg": "media/v08__seg.mp3"
+ },
+ {
+  "l": "v09",
+  "std": "media/v09__std.mp3",
+  "seg": "media/v09__seg.mp3"
+ },
+ {
+  "l": "v10",
+  "std": "media/v10__std.mp3",
+  "seg": "media/v10__seg.mp3"
+ },
+ {
+  "l": "v11",
+  "std": "media/v11__std.mp3",
+  "seg": "media/v11__seg.mp3"
+ }
+];
+var CONTEXT = "media/context_current_reel.mp4";
+var POSTER = "media/context_current_reel.jpg";
+var KEY = "eduflow_voice_audition_r2";
+var MAX_TOP = 3;
+var LBL = {std:"משפט-בוחן", seg:"קטע מריל אמיתי"};
+
+var state = {};
+try { state = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch(e){ state = {}; }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
+function ent(l){ state[l] = state[l] || {}; return state[l]; }
+
+if (CONTEXT) {
+  var v = document.createElement("video");
+  v.controls = true; v.preload = "none"; v.playsInline = true; v.src = CONTEXT;
+  if (POSTER) v.poster = POSTER;
+  document.getElementById("ctxCard").appendChild(v);
+}
+
+var list = document.getElementById("list");
+ITEMS.forEach(function(it){
+  var e = state[it.l] || {};
+  var card = document.createElement("div");
+  card.className = "card";
+  card.setAttribute("data-label", it.l);
+
+  var scale = "";
+  for (var n = 1; n <= 10; n++) {
+    scale += '<button class="sc" data-score="' + n + '" aria-pressed="' +
+             (e.score === n ? "true" : "false") + '">' + n + '</button>';
+  }
+  card.innerHTML =
+    '<div class="chead"><span class="lbl">' + it.l + '</span>' +
+    '<button class="star" aria-pressed="' + (e.top ? "true" : "false") + '">' +
+      (e.top ? "★ טופ-3" : "☆ טופ-3") + '</button></div>' +
+    '<div class="plr"><span>' + LBL.std + '</span>' +
+      '<audio controls preload="none" src="' + it.std + '"></audio></div>' +
+    '<div class="plr"><span>' + LBL.seg + '</span>' +
+      '<audio controls preload="none" src="' + it.seg + '"></audio></div>' +
+    '<div class="scale">' + scale + '</div>' +
+    '<input class="nt" type="text" placeholder="מה הפריע / מה עבד…" value="">' +
+    '<p class="hint">1 = בלתי-נסבל · 10 = הייתי משגר איתו</p>';
+  card.querySelector(".nt").value = e.note || "";
+  list.appendChild(card);
+});
+
+function topCount(){
+  return Object.keys(state).filter(function(k){ return state[k] && state[k].top; }).length;
+}
+function refresh(){
+  var done = 0;
+  Array.prototype.forEach.call(document.querySelectorAll(".card"), function(card){
+    var l = card.getAttribute("data-label"), e = state[l] || {};
+    if (e.score) done++;
+    card.classList.toggle("done", !!e.score);
+    card.classList.toggle("top", !!e.top);
+    Array.prototype.forEach.call(card.querySelectorAll(".sc"), function(b){
+      b.setAttribute("aria-pressed", (e.score === +b.getAttribute("data-score")) ? "true" : "false");
+    });
+    var st = card.querySelector(".star");
+    st.setAttribute("aria-pressed", e.top ? "true" : "false");
+    st.textContent = e.top ? "★ טופ-3" : "☆ טופ-3";
+  });
+  document.getElementById("cnt").textContent = done;
+  document.getElementById("tcnt").textContent = topCount();
+  document.getElementById("pfill").style.width = (100 * done / ITEMS.length) + "%";
+  document.getElementById("vtext").value = verdictString();
+}
+
+function verdictString(){
+  var scores = [], tops = [], notes = [];
+  ITEMS.forEach(function(it){
+    var e = state[it.l] || {};
+    if (e.score) scores.push(it.l + ":" + e.score);
+    if (e.top) tops.push(it.l);
+    if (e.note) notes.push(it.l + " " + e.note);
+  });
+  var s = "VOICES-R2 | " + (scores.join(" ") || "אין ציונים");
+  s += " | TOP: " + (tops.join(",") || "—");
+  s += " | הערות: " + (notes.join(" ; ") || "—");
+  return s;
+}
+
+document.addEventListener("click", function(ev){
+  var card = ev.target.closest && ev.target.closest(".card");
+  if (!card) return;
+  var l = card.getAttribute("data-label"), e = ent(l);
+  var sc = ev.target.closest(".sc");
+  if (sc) {
+    var n = +sc.getAttribute("data-score");
+    if (e.score === n) delete e.score; else e.score = n;
+    save(); refresh(); return;
+  }
+  if (ev.target.closest(".star")) {
+    if (e.top) { delete e.top; }
+    else if (topCount() >= MAX_TOP) {
+      // ent() above already created an empty record for this card; drop it,
+      // or a refused 4th star leaves a junk {} key behind in localStorage.
+      if (!e.score && !e.note) delete state[l];
+      flash("כבר סימנת " + MAX_TOP + " — הסר אחד קודם");
+      return;
+    } else { e.top = true; }
+    save(); refresh(); return;
+  }
+});
+
+document.addEventListener("input", function(ev){
+  var nt = ev.target.closest && ev.target.closest(".nt");
+  if (!nt) return;
+  var card = nt.closest(".card"), e = ent(card.getAttribute("data-label"));
+  if (nt.value) e.note = nt.value; else delete e.note;
+  save();
+  document.getElementById("vtext").value = verdictString();
+});
+
+var toast = document.getElementById("toast");
+function flash(msg){
+  toast.querySelector("span").textContent = msg;
+  toast.classList.add("on");
+  setTimeout(function(){ toast.classList.remove("on"); }, 1800);
+}
+
+function copyFallback(txt){
+  var t = document.getElementById("vtext");
+  t.removeAttribute("readonly"); t.select(); t.setSelectionRange(0, 99999);
+  var ok = false;
+  try { ok = document.execCommand("copy"); } catch(e){}
+  t.setAttribute("readonly", "readonly");
+  if (window.getSelection) window.getSelection().removeAllRanges();
+  flash(ok ? "הועתק ללוח" : "העתק ידנית מהתיבה למטה");
+}
+
+document.getElementById("send").addEventListener("click", function(){
+  var txt = verdictString();
+  document.getElementById("sentBox").style.display = "block";
+  if (navigator.share) {
+    navigator.share({ title: "VOICES-R2", text: txt })
+      .then(function(){ flash("נשלח"); })
+      .catch(function(){ tryClipboard(txt); });
+  } else {
+    tryClipboard(txt);
+  }
+});
+function tryClipboard(txt){
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(txt)
+      .then(function(){ flash("הועתק ללוח"); })
+      .catch(function(){ copyFallback(txt); });
+  } else { copyFallback(txt); }
+}
+
+document.getElementById("dl").addEventListener("click", function(){
+  var out = { audition:"voices-r2", answered_at:new Date().toISOString(),
+              verdict_string: verdictString(), cards:{} };
+  ITEMS.forEach(function(it){
+    var e = state[it.l] || {}; var o = {};
+    if (e.score) o.score = e.score;
+    if (e.top) o.top = true;
+    if (e.note) o.note = e.note;
+    if (Object.keys(o).length) out.cards[it.l] = o;
+  });
+  var blob = new Blob([JSON.stringify(out, null, 2)], {type:"application/json"});
+  var a = document.createElement("a");
+  a.href = URL.createObjectURL(blob); a.download = "voices-r2-verdict.json";
+  document.body.appendChild(a); a.click();
+  setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 500);
+});
+
+// one player at a time — phone speakers can't do a duet
+var audios = Array.prototype.slice.call(document.querySelectorAll("audio"));
+audios.forEach(function(a){
+  a.addEventListener("play", function(){
+    audios.forEach(function(o){ if (o !== a) o.pause(); });
+  });
+});
+
+refresh();
+})();
+</script>
+</body>
+</html>

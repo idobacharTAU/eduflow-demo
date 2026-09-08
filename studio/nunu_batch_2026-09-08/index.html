@@ -1,0 +1,638 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>נונו מגיש — אצווה 1 (10 סרטונים)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Tokens lifted verbatim from web/psychometric.html (art direction OA-141,
+     «נייר-מחברת-משבצות») + the mascot palette from lab/mascot/rig/PALETTE.json.
+     Nothing here is a new colour decision. */
+  :root{
+    --paper:#FFFDFB; --paper-2:#F7F4EE; --sheet:#fff;
+    --ink:#1A1430; --ink-2:#4A4360; --ink-3:#6E6880;
+    --rule:#E6E0D6; --rule-2:#CFC7B9;
+    --accent:#7C3AED; --accent-deep:#6D28D9; --accent-tint:#F4EFFE; --accent-edge:#DCCCFB;
+    --signal:#A14A08; --signal-fill:#F2B33A; --signal-tint:#FDF4E4; --signal-edge:#EFDFC2;
+    --nunu:#C794F1; --nunu-ink:#521C61;
+    --ok:#226b41;
+  }
+  *{box-sizing:border-box}
+  [hidden]{display:none!important}
+  html,body{margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    --grid:rgba(88,118,176,.15);
+    background-color:var(--paper);
+    background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:26px 26px;background-position:center top;
+    color:var(--ink);
+    font-family:"Rubik",-apple-system,"Segoe UI",system-ui,"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    padding:0 0 48px;
+  }
+  img,video{max-width:100%;display:block}
+  a{color:inherit}
+  .display{font-family:"Secular One","Rubik",Georgia,sans-serif;font-weight:400;letter-spacing:0;line-height:1.14}
+  .wrap{max-width:760px;margin:0 auto;padding:0 12px}
+
+  header{padding:26px 0 4px;text-align:center}
+  header h1{margin:0 0 8px;font-size:27px}
+  header h1 .nb{white-space:nowrap}
+  header .ctx{margin:0 auto;max-width:34em;color:var(--ink-2);font-size:14.5px;line-height:1.6}
+
+  .howto{
+    margin:16px 0 6px;padding:12px 14px;
+    background:var(--signal-tint);border:1px solid var(--signal-edge);
+    border-inline-start:4px solid var(--signal-fill);border-radius:12px;
+    color:var(--ink);font-size:14px;line-height:1.65;
+  }
+  .howto b{color:var(--signal);font-weight:600}
+
+  .row{margin:22px 0 0}
+  .rowhead{
+    margin:0 0 10px;padding:0 2px 8px;border-bottom:2px solid var(--ink);
+    display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;
+  }
+  .rowhead .display{font-size:21px;margin:0}
+  .rowhead .trap{color:var(--ink-3);font-size:13.5px;font-weight:400;line-height:1.5}
+
+  .pair{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:start}
+  .card{
+    background:var(--sheet);border:1px solid var(--rule);border-radius:16px;
+    padding:9px 9px 11px;min-width:0;
+  }
+  .thumb{
+    display:block;position:relative;width:100%;aspect-ratio:9/16;
+    padding:0;border:0;border-radius:11px;overflow:hidden;
+    background:var(--paper-2);cursor:pointer;
+  }
+  .thumb img{width:100%;height:100%;object-fit:cover}
+  .thumb .play{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:46px;height:46px;border-radius:50%;
+    background:rgba(255,255,255,.95);box-shadow:0 2px 12px rgba(26,20,48,.34);
+  }
+  .thumb .play::before{
+    content:"";position:absolute;top:50%;left:50%;transform:translate(-60%,-50%);
+    border-style:solid;border-width:9px 13px 9px 0;
+    border-color:transparent var(--nunu-ink) transparent transparent;
+  }
+  .card video{width:100%;aspect-ratio:9/16;border-radius:11px;background:#000;object-fit:contain}
+
+  .lbl{margin:9px 0 0;font-size:14px;font-weight:500;line-height:1.4}
+  .lbl .num{color:var(--ink-3);font-weight:400;font-variant-numeric:tabular-nums}
+  /* Two fixed lines — channel above handle. `@eduflow__psychometric` is 22
+     chars and `@eduflow.il` is 11: on one line the long one wrapped to three
+     lines and the two columns of a row stopped lining up. min-height is sized
+     for channel + a two-line handle so BOTH columns are the same height even
+     when only one of them wraps — never truncate a handle, the Owner is about
+     to pick an account from it. */
+  .badge{
+    margin:6px 0 0;padding:5px 8px;border-radius:8px;
+    display:flex;flex-direction:column;gap:1px;min-height:58px;justify-content:center;
+    font-size:11.5px;line-height:1.4;overflow-wrap:anywhere;
+  }
+  .badge b{font-weight:600;letter-spacing:.02em}
+  .badge bdi{font-weight:400;font-size:11px}
+  .badge-tt{background:var(--paper-2);border:1px solid var(--rule-2);color:var(--ink-2)}
+  .badge-ig{background:var(--accent-tint);border:1px solid var(--accent-edge);color:var(--accent-deep)}
+  .meta{margin:6px 0 9px;color:var(--ink-3);font-size:12.5px;font-variant-numeric:tabular-nums}
+
+  .btn{
+    display:flex;align-items:center;justify-content:center;
+    width:100%;min-height:44px;min-width:44px;padding:10px 8px;
+    border-radius:11px;font:inherit;font-size:14px;font-weight:600;
+    text-align:center;text-decoration:none;cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .btn-go{background:var(--accent);color:#fff;border:1px solid var(--accent)}
+  .btn-go:hover{background:var(--accent-deep)}
+  /* --ink-3 (not --rule-2) on the outline buttons: --rule-2 is 1.68:1 on white,
+     under the 3:1 that WCAG 1.4.11 asks of a control boundary. --ink-3 is 5.31:1. */
+  .btn-2{background:var(--sheet);color:var(--ink);border:1px solid var(--ink-3);font-weight:500;font-size:13.5px}
+  .btn-2:hover{border-color:var(--ink)}
+  .btn:active{transform:translateY(1px)}
+  .btn-row{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px}
+  .btn-copy{margin-top:6px}
+  .btn-copy.done{background:#EAF6EE;border-color:rgba(34,107,65,.45);color:var(--ok)}
+
+  .cap{margin-top:9px;border-top:1px solid var(--rule);padding-top:8px}
+  .cap summary{
+    min-height:44px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+    cursor:pointer;color:var(--ink-2);font-size:13px;font-weight:500;
+  }
+  .cap .tag{color:var(--ink-3);font-size:11px;font-weight:400}
+  .cap-tx{
+    margin-top:7px;padding:9px 10px;background:var(--paper-2);border-radius:9px;
+    color:var(--ink);font-size:12.5px;line-height:1.75;white-space:pre-wrap;overflow-wrap:anywhere;
+  }
+  .cap-fb{
+    display:block;width:100%;margin-top:7px;min-height:150px;padding:8px;
+    border:1px solid var(--accent);border-radius:9px;background:var(--sheet);
+    color:var(--ink);font:inherit;font-size:12.5px;line-height:1.7;
+  }
+  .cap-1x1{
+    display:flex;align-items:center;min-height:44px;margin-top:7px;
+    color:var(--accent-deep);font-size:12.5px;font-weight:500;
+  }
+
+  footer{
+    margin-top:30px;padding-top:14px;border-top:1px solid var(--rule);
+    color:var(--ink-3);font-size:12.5px;line-height:1.85;text-align:center;
+  }
+  footer b{color:var(--ink-2);font-weight:500}
+
+  @media (min-width:620px){
+    .wrap{padding:0 20px}
+    header h1{font-size:34px}
+    .pair{gap:16px}
+    .card{padding:12px 12px 14px}
+    .rowhead .display{font-size:24px}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1 class="display">נונו מגיש — אצווה <bdi>1</bdi> <span class="nb">(<bdi>10</bdi> סרטונים)</span></h1>
+    <p class="ctx">נונו נכנס ראשון ומראה מלכודת אחת בתוך שלוש שניות, ורק אז נכנס השיעור — הקאטים הקודמים נפתחו ישר בשיעור.</p>
+  </header>
+
+  <p class="howto"><b>להעלאה מהטלפון:</b> הורידו סרטון + קאבר ← TikTok/Instagram ← הדביקו את הכיתוב ← בחרו את הקאבר שהורדתם כתמונת־שער.</p>
+
+    <section class="row">
+      <h2 class="rowhead"><span class="display">אלגברה מאפס · ריל <bdi>1</bdi></span><span class="trap">רגע — סימן שווה זה איזון, לא פקודה.</span></h2>
+      <div class="pair">
+      <article class="card" data-stem="nunu_reset_algebra_r1_il_social">
+        <button class="thumb" type="button" aria-label="נגן — אלגברה מאפס, ריל 1, TikTok">
+          <img src="nunu_reset_algebra_r1_il_social.cover_9x16.jpg" alt="כיסוי הסרטון: אלגברה מאפס, ריל 1 — TikTok" width="1080" height="1920" loading="lazy" decoding="async">
+          <span class="play" aria-hidden="true"></span>
+        </button>
+        <p class="lbl"><span class="num"><bdi>#1</bdi></span> · אלגברה ריל <bdi>1</bdi></p>
+        <p class="badge badge-tt"><b>TikTok</b><bdi dir="ltr">@eduflow.il</bdi></p>
+        <p class="meta"><bdi>26.3</bdi> שנ׳ · <bdi>3.0</bdi> MB</p>
+        <button class="btn btn-go" type="button" data-act="play">▶ נגן</button>
+        <div class="btn-row">
+          <a class="btn btn-2" href="nunu_reset_algebra_r1_il_social.mp4" download="nunu_reset_algebra_r1_il_social.mp4">⬇ הורדה</a>
+          <a class="btn btn-2" href="nunu_reset_algebra_r1_il_social.cover_9x16.jpg" download="nunu_reset_algebra_r1_il_social.cover_9x16.jpg">⬇ קאבר</a>
+        </div>
+        <button class="btn btn-2 btn-copy" type="button" data-act="copy">📋 העתק כיתוב</button>
+        <details class="cap">
+          <summary>הכיתוב <span class="tag"><bdi>tt_rs_a1</bdi></span></summary>
+          <div class="cap-tx">סימן שווה זה איזון, לא פקודה.
+
+נונו מראה את המלכודת, והשיעור עצמו עושה את העבודה — אלגברה מאפס.
+
+את השאלות האלה לא תמצאו בשום מאגר — כתבנו אותן בעצמנו, ואימתנו כל תשובה לפני שהיא עלתה.
+
+הורידו חינם — חפשו &quot;EduFlow Campus&quot; ב-App Store
+
+#פסיכומטרי #מבחן_פסיכומטרי #אלגברה #מאפס #EduFlow</div>
+          <textarea class="cap-fb" readonly hidden aria-label="הכיתוב לסימון ידני">סימן שווה זה איזון, לא פקודה.
+
+נונו מראה את המלכודת, והשיעור עצמו עושה את העבודה — אלגברה מאפס.
+
+את השאלות האלה לא תמצאו בשום מאגר — כתבנו אותן בעצמנו, ואימתנו כל תשובה לפני שהיא עלתה.
+
+הורידו חינם — חפשו &quot;EduFlow Campus&quot; ב-App Store
+
+#פסיכומטרי #מבחן_פסיכומטרי #אלגברה #מאפס #EduFlow</textarea>
+          <a class="cap-1x1" href="nunu_reset_algebra_r1_il_social.cover_1x1.jpg" download="nunu_reset_algebra_r1_il_social.cover_1x1.jpg">⬇ קאבר ריבועי <bdi>1:1</bdi> — לרשת של אינסטגרם</a>
+        </details>
+      </article>
+      <article class="card" data-stem="nunu_reset_algebra_r1_psy_social">
+        <button class="thumb" type="button" aria-label="נגן — אלגברה מאפס, ריל 1, Instagram">
+          <img src="nunu_reset_algebra_r1_psy_social.cover_9x16.jpg" alt="כיסוי הסרטון: אלגברה מאפס, ריל 1 — Instagram" width="1080" height="1920" loading="lazy" decoding="async">
+          <span class="play" aria-hidden="true"></span>
+        </button>
+        <p class="lbl"><span class="num"><bdi>#2</bdi></span> · אלגברה ריל <bdi>1</bdi></p>
+        <p class="badge badge-ig"><b>Instagram</b><bdi dir="ltr">@eduflow__psychometric</bdi></p>
+        <p class="meta"><bdi>26.3</bdi> שנ׳ · <bdi>3.0</bdi> MB</p>
+        <button class="btn btn-go" type="button" data-act="play">▶ נגן</button>
+        <div class="btn-row">
+          <a class="btn btn-2" href="nunu_reset_algebra_r1_psy_social.mp4" download="nunu_reset_algebra_r1_psy_social.mp4">⬇ הורדה</a>
+          <a class="btn btn-2" href="nunu_reset_algebra_r1_psy_social.cover_9x16.jpg" download="nunu_reset_algebra_r1_psy_social.cover_9x16.jpg">⬇ קאבר</a>
+        </div>
+        <button class="btn btn-2 btn-copy" type="button" data-act="copy">📋 העתק כיתוב</button>
+        <details class="cap">
+          <summary>הכיתוב <span class="tag"><bdi>ig_rs_a1</bdi></span></summary>
+          <div class="cap-tx">סימן שווה זה איזון, לא פקודה.
+
+נונו מראה את המלכודת, והשיעור עצמו עושה את העבודה — אלגברה מאפס.
+
+את השאלות האלה לא תמצאו בשום מאגר — כתבנו אותן בעצמנו, ואימתנו כל תשובה לפני שהיא עלתה.
+
+הורידו חינם — הלינק בביו 👆
+
+#פסיכומטרי #מבחן_פסיכומטרי #אלגברה #מאפס #EduFlow</div>
+          <textarea class="cap-fb" readonly hidden aria-label="הכיתוב לסימון ידני">סימן שווה זה איזון, לא פקודה.
+
+נונו מראה את המלכודת, והשיעור עצמו עושה את העבודה — אלגברה מאפס.
+
+את השאלות האלה לא תמצאו בשום מאגר — כתבנו אותן בעצמנו, ואימתנו כל תשובה לפני שהיא עלתה.
+
+הורידו חינם — הלינק בביו 👆
+
+#פסיכומטרי #מבחן_פסיכומטרי #אלגברה #מאפס #EduFlow</textarea>
+          <a class="cap-1x1" href="nunu_reset_algebra_r1_psy_social.cover_1x1.jpg" download="nunu_reset_algebra_r1_psy_social.cover_1x1.jpg">⬇ קאבר ריבועי <bdi>1:1</bdi> — לרשת של אינסטגרם</a>
+        </details>
+      </article>
+      </div>
+    </section>
+    <section class="row">
+      <h2 class="rowhead"><span class="display">אלגברה מאפס · ריל <bdi>2</bdi></span><span class="trap">רגע — לא מעבירים אגף. מבטלים פעולה.</span></h2>
+      <div class="pair">
+      <article class="card" data-stem="nunu_reset_algebra_r2_il_social">
+        <button class="thumb" type="button" aria-label="נגן — אלגברה מאפס, ריל 2, TikTok">
+          <img src="nunu_reset_algebra_r2_il_social.cover_9x16.jpg" alt="כיסוי הסרטון: אלגברה מאפס, ריל 2 — TikTok" width="1080" height="1920" loading="lazy" decoding="async">
+          <span class="play" aria-hidden="true"></span>
+        </button>
+        <p class="lbl"><span class="num"><bdi>#3</bdi></span> · אלגברה ריל <bdi>2</bdi></p>
+        <p class="badge badge-tt"><b>TikTok</b><bdi dir="ltr">@eduflow.il</bdi></p>
+        <p class="meta"><bdi>24.3</bdi> שנ׳ · <bdi>2.9</bdi> MB</p>
+        <button class="btn btn-go" type="button" data-act="play">▶ נגן</button>
+        <div class="btn-row">
+          <a class="btn btn-2" href="nunu_reset_algebra_r2_il_social.mp4" download="nunu_reset_algebra_r2_il_social.mp4">⬇ הורדה</a>
+          <a class="btn btn-2" href="nunu_reset_algebra_r2_il_social.cover_9x16.jpg" download="nunu_reset_algebra_r2_il_social.cover_9x16.jpg">⬇ קאבר</a>
+        </div>
+        <button class="btn btn-2 btn-copy" type="button" data-act="copy">📋 העתק כיתוב</button>
+        <details class="cap">
+          <summary>הכיתוב <span class="tag"><bdi>tt_rs_a2</bdi></span></summary>
+          <div class="cap-tx">לא מעבירים אגף. מבטלים פעולה.
+
+נונו מראה את המלכודת, והשיעור עצמו עושה את העבודה — אלגברה מאפס.
+
+את השאלות האלה לא תמצאו בשום מאגר — כתבנו אותן בעצמנו, ואימתנו כל תשובה לפני שהיא עלתה.
+
+הורידו חינם — חפשו &quot;EduFlow Campus&quot; ב-App Store
+
+#פסיכומטרי #מבחן_פסיכומטרי #אלגברה #מאפס #EduFlow</div>
+          <textarea class="cap-fb" readonly hidden aria-label="הכיתוב לסימון ידני">לא מעבירים אגף. מבטלים פעולה.
+
+נונו מראה את המלכודת, והשיעור עצמו עושה את העבודה — אלגברה מאפס.
+
+את השאלות האלה לא תמצאו בשום מאגר — כתבנו אותן בעצמנו, ואימתנו כל תשובה לפני שהיא עלתה.
+
+הורידו חינם — חפשו &quot;EduFlow Campus&quot; ב-App Store
+
+#פסיכומטרי #מבחן_פסיכומטרי #אלגברה #מאפס #EduFlow</textarea>
+          <a class="cap-1x1" href="nunu_reset_algebra_r2_il_social.cover_1x1.jpg" download="nunu_reset_algebra_r2_il_social.cover_1x1.jpg">⬇ קאבר ריבועי <bdi>1:1</bdi> — לרשת של אינסטגרם</a>
+        </details>
+      </article>
+      <article class="card" data-stem="nunu_reset_algebra_r2_psy_social">
+        <button class="thumb" type="button" aria-label="נגן — אלגברה מאפס, ריל 2, Instagram">
+          <img src="nunu_reset_algebra_r2_psy_social.cover_9x16.jpg" alt="כיסוי הסרטון: אלגברה מאפס, ריל 2 — Instagram" width="1080" height="1920" loading="lazy" decoding="async">
+          <span class="play" aria-hidden="true"></span>
+        </button>
+        <p class="lbl"><span class="num"><bdi>#4</bdi></span> · אלגברה ריל <bdi>2</bdi></p>
+        <p class="badge badge-ig"><b>Instagram</b><bdi dir="ltr">@eduflow__psychometric</bdi></p>
+        <p class="meta"><bdi>24.3</bdi> שנ׳ · <bdi>2.9</bdi> MB</p>
+        <button class="btn btn-go" type="button" data-act="play">▶ נגן</button>
+        <div class="btn-row">
+          <a class="btn btn-2" href="nunu_reset_algebra_r2_psy_social.mp4" download="nunu_reset_algebra_r2_psy_social.mp4">⬇ הורדה</a>
+          <a class="btn btn-2" href="nunu_reset_algebra_r2_psy_social.cover_9x16.jpg" download="nunu_reset_algebra_r2_psy_social.cover_9x16.jpg">⬇ קאבר</a>
+        </div>
+        <button class="btn btn-2 btn-copy" type="button" data-act="copy">📋 העתק כיתוב</button>
+        <details class="cap">
+          <summary>הכיתוב <span class="tag"><bdi>ig_rs_a2</bdi></span></summary>
+          <div class="cap-tx">לא מעבירים אגף. מבטלים פעולה.
+
+נונו מראה את המלכודת, והשיעור עצמו עושה את העבודה — אלגברה מאפס.
+
+את השאלות האלה לא תמצאו בשום מאגר — כתבנו אותן בעצמנו, ואימתנו כל תשובה לפני שהיא עלתה.
+
+הורידו חינם — הלינק בביו 👆
+
+#פסיכומטרי #מבחן_פסיכומטרי #אלגברה #מאפס #EduFlow</div>
+          <textarea class="cap-fb" readonly hidden aria-label="הכיתוב לסימון ידני">לא מעבירים אגף. מבטלים פעולה.
+
+נונו מראה את המלכודת, והשיעור עצמו עושה את העבודה — אלגברה מאפס.
+
+את השאלות האלה לא תמצאו בשום מאגר — כתבנו אותן בעצמנו, ואימתנו כל תשובה לפני שהיא עלתה.
+
+הורידו חינם — הלינק בביו 👆
+
+#פסיכומטרי #מבחן_פסיכומטרי #אלגברה #מאפס #EduFlow</textarea>
+          <a class="cap-1x1" href="nunu_reset_algebra_r2_psy_social.cover_1x1.jpg" download="nunu_reset_algebra_r2_psy_social.cover_1x1.jpg">⬇ קאבר ריבועי <bdi>1:1</bdi> — לרשת של אינסטגרם</a>
+        </details>
+      </article>
+      </div>
+    </section>
+    <section class="row">
+      <h2 class="rowhead"><span class="display">מילות־קישור מאפס · ריל <bdi>1</bdi></span><span class="trap">רגע — מילת ניגוד היא לא מילה הפוכה.</span></h2>
+      <div class="pair">
+      <article class="card" data-stem="nunu_reset_connect_r1_il_social">
+        <button class="thumb" type="button" aria-label="נגן — מילות־קישור מאפס, ריל 1, TikTok">
+          <img src="nunu_reset_connect_r1_il_social.cover_9x16.jpg" alt="כיסוי הסרטון: מילות־קישור מאפס, ריל 1 — TikTok" width="1080" height="1920" loading="lazy" decoding="async">
+          <span class="play" aria-hidden="true"></span>
+        </button>
+        <p class="lbl"><span class="num"><bdi>#5</bdi></span> · מילות־קישור ריל <bdi>1</bdi></p>
+        <p class="badge badge-tt"><b>TikTok</b><bdi dir="ltr">@eduflow.il</bdi></p>
+        <p class="meta"><bdi>25.3</bdi> שנ׳ · <bdi>3.5</bdi> MB</p>
+        <button class="btn btn-go" type="button" data-act="play">▶ נגן</button>
+        <div class="btn-row">
+          <a class="btn btn-2" href="nunu_reset_connect_r1_il_social.mp4" download="nunu_reset_connect_r1_il_social.mp4">⬇ הורדה</a>
+          <a class="btn btn-2" href="nunu_reset_connect_r1_il_social.cover_9x16.jpg" download="nunu_reset_connect_r1_il_social.cover_9x16.jpg">⬇ קאבר</a>
+        </div>
+        <button class="btn btn-2 btn-copy" type="button" data-act="copy">📋 העתק כיתוב</button>
+        <details class="cap">
+          <summary>הכיתוב <span class="tag"><bdi>tt_rs_c1</bdi></span></summary>
+          <div class="cap-tx">מילת ניגוד היא לא מילה הפוכה.
+
+נונו מראה את המלכודת, והשיעור עצמו עושה את העבודה — מילות-קישור מאפס.
+
+את השאלות האלה לא תמצאו בשום מאגר — כתבנו אותן בעצמנו, ואימתנו כל תשובה לפני שהיא עלתה.
+
+הורידו חינם — חפשו &quot;EduFlow Campus&quot; ב-App Store
+
+#פסיכומטרי #מבחן_פסיכומטרי #מילות_קישור #מאפס #EduFlow</div>
+          <textarea class="cap-fb" readonly hidden aria-label="הכיתוב לסימון ידני">מילת ניגוד היא לא מילה הפוכה.
+
+נונו מראה את המלכודת, והשיעור עצמו עושה את העבודה — מילות-קישור מאפס.
+
+את השאלות האלה לא תמצאו בשום מאגר — כתבנו אותן בעצמנו, ואימתנו כל תשובה לפני שהיא עלתה.
+
+הורידו חינם — חפשו &quot;EduFlow Campus&quot; ב-App Store
+
+#פסיכומטרי #מבחן_פסיכומטרי #מילות_קישור #מאפס #EduFlow</textarea>
+          <a class="cap-1x1" href="nunu_reset_connect_r1_il_social.cover_1x1.jpg" download="nunu_reset_connect_r1_il_social.cover_1x1.jpg">⬇ קאבר ריבועי <bdi>1:1</bdi> — לרשת של אינסטגרם</a>
+        </details>
+      </article>
+      <article class="card" data-stem="nunu_reset_connect_r1_psy_social">
+        <button class="thumb" type="button" aria-label="נגן — מילות־קישור מאפס, ריל 1, Instagram">
+          <img src="nunu_reset_connect_r1_psy_social.cover_9x16.jpg" alt="כיסוי הסרטון: מילות־קישור מאפס, ריל 1 — Instagram" width="1080" height="1920" loading="lazy" decoding="async">
+          <span class="play" aria-hidden="true"></span>
+        </button>
+        <p class="lbl"><span class="num"><bdi>#6</bdi></span> · מילות־קישור ריל <bdi>1</bdi></p>
+        <p class="badge badge-ig"><b>Instagram</b><bdi dir="ltr">@eduflow__psychometric</bdi></p>
+        <p class="meta"><bdi>25.3</bdi> שנ׳ · <bdi>3.5</bdi> MB</p>
+        <button class="btn btn-go" type="button" data-act="play">▶ נגן</button>
+        <div class="btn-row">
+          <a class="btn btn-2" href="nunu_reset_connect_r1_psy_social.mp4" download="nunu_reset_connect_r1_psy_social.mp4">⬇ הורדה</a>
+          <a class="btn btn-2" href="nunu_reset_connect_r1_psy_social.cover_9x16.jpg" download="nunu_reset_connect_r1_psy_social.cover_9x16.jpg">⬇ קאבר</a>
+        </div>
+        <button class="btn btn-2 btn-copy" type="button" data-act="copy">📋 העתק כיתוב</button>
+        <details class="cap">
+          <summary>הכיתוב <span class="tag"><bdi>ig_rs_c1</bdi></span></summary>
+          <div class="cap-tx">מילת ניגוד היא לא מילה הפוכה.
+
+נונו מראה את המלכודת, והשיעור עצמו עושה את העבודה — מילות-קישור מאפס.
+
+את השאלות האלה לא תמצאו בשום מאגר — כתבנו אותן בעצמנו, ואימתנו כל תשובה לפני שהיא עלתה.
+
+הורידו חינם — הלינק בביו 👆
+
+#פסיכומטרי #מבחן_פסיכומטרי #מילות_קישור #מאפס #EduFlow</div>
+          <textarea class="cap-fb" readonly hidden aria-label="הכיתוב לסימון ידני">מילת ניגוד היא לא מילה הפוכה.
+
+נונו מראה את המלכודת, והשיעור עצמו עושה את העבודה — מילות-קישור מאפס.
+
+את השאלות האלה לא תמצאו בשום מאגר — כתבנו אותן בעצמנו, ואימתנו כל תשובה לפני שהיא עלתה.
+
+הורידו חינם — הלינק בביו 👆
+
+#פסיכומטרי #מבחן_פסיכומטרי #מילות_קישור #מאפס #EduFlow</textarea>
+          <a class="cap-1x1" href="nunu_reset_connect_r1_psy_social.cover_1x1.jpg" download="nunu_reset_connect_r1_psy_social.cover_1x1.jpg">⬇ קאבר ריבועי <bdi>1:1</bdi> — לרשת של אינסטגרם</a>
+        </details>
+      </article>
+      </div>
+    </section>
+    <section class="row">
+      <h2 class="rowhead"><span class="display">אחוזים מאפס · ריל <bdi>1</bdi></span><span class="trap">רגע — עשרים אחוז מחמישים זה לא עשרים.</span></h2>
+      <div class="pair">
+      <article class="card" data-stem="nunu_reset_percent_r1_il_social">
+        <button class="thumb" type="button" aria-label="נגן — אחוזים מאפס, ריל 1, TikTok">
+          <img src="nunu_reset_percent_r1_il_social.cover_9x16.jpg" alt="כיסוי הסרטון: אחוזים מאפס, ריל 1 — TikTok" width="1080" height="1920" loading="lazy" decoding="async">
+          <span class="play" aria-hidden="true"></span>
+        </button>
+        <p class="lbl"><span class="num"><bdi>#7</bdi></span> · אחוזים ריל <bdi>1</bdi></p>
+        <p class="badge badge-tt"><b>TikTok</b><bdi dir="ltr">@eduflow.il</bdi></p>
+        <p class="meta"><bdi>24.4</bdi> שנ׳ · <bdi>4.2</bdi> MB</p>
+        <button class="btn btn-go" type="button" data-act="play">▶ נגן</button>
+        <div class="btn-row">
+          <a class="btn btn-2" href="nunu_reset_percent_r1_il_social.mp4" download="nunu_reset_percent_r1_il_social.mp4">⬇ הורדה</a>
+          <a class="btn btn-2" href="nunu_reset_percent_r1_il_social.cover_9x16.jpg" download="nunu_reset_percent_r1_il_social.cover_9x16.jpg">⬇ קאבר</a>
+        </div>
+        <button class="btn btn-2 btn-copy" type="button" data-act="copy">📋 העתק כיתוב</button>
+        <details class="cap">
+          <summary>הכיתוב <span class="tag"><bdi>tt_rs_b1</bdi></span></summary>
+          <div class="cap-tx">עשרים אחוז מחמישים זה לא עשרים.
+
+נונו מראה את המלכודת, והשיעור עצמו עושה את העבודה — אחוזים מאפס.
+
+את השאלות האלה לא תמצאו בשום מאגר — כתבנו אותן בעצמנו, ואימתנו כל תשובה לפני שהיא עלתה.
+
+הורידו חינם — חפשו &quot;EduFlow Campus&quot; ב-App Store
+
+#פסיכומטרי #מבחן_פסיכומטרי #אחוזים #מאפס #EduFlow</div>
+          <textarea class="cap-fb" readonly hidden aria-label="הכיתוב לסימון ידני">עשרים אחוז מחמישים זה לא עשרים.
+
+נונו מראה את המלכודת, והשיעור עצמו עושה את העבודה — אחוזים מאפס.
+
+את השאלות האלה לא תמצאו בשום מאגר — כתבנו אותן בעצמנו, ואימתנו כל תשובה לפני שהיא עלתה.
+
+הורידו חינם — חפשו &quot;EduFlow Campus&quot; ב-App Store
+
+#פסיכומטרי #מבחן_פסיכומטרי #אחוזים #מאפס #EduFlow</textarea>
+          <a class="cap-1x1" href="nunu_reset_percent_r1_il_social.cover_1x1.jpg" download="nunu_reset_percent_r1_il_social.cover_1x1.jpg">⬇ קאבר ריבועי <bdi>1:1</bdi> — לרשת של אינסטגרם</a>
+        </details>
+      </article>
+      <article class="card" data-stem="nunu_reset_percent_r1_psy_social">
+        <button class="thumb" type="button" aria-label="נגן — אחוזים מאפס, ריל 1, Instagram">
+          <img src="nunu_reset_percent_r1_psy_social.cover_9x16.jpg" alt="כיסוי הסרטון: אחוזים מאפס, ריל 1 — Instagram" width="1080" height="1920" loading="lazy" decoding="async">
+          <span class="play" aria-hidden="true"></span>
+        </button>
+        <p class="lbl"><span class="num"><bdi>#8</bdi></span> · אחוזים ריל <bdi>1</bdi></p>
+        <p class="badge badge-ig"><b>Instagram</b><bdi dir="ltr">@eduflow__psychometric</bdi></p>
+        <p class="meta"><bdi>24.4</bdi> שנ׳ · <bdi>4.2</bdi> MB</p>
+        <button class="btn btn-go" type="button" data-act="play">▶ נגן</button>
+        <div class="btn-row">
+          <a class="btn btn-2" href="nunu_reset_percent_r1_psy_social.mp4" download="nunu_reset_percent_r1_psy_social.mp4">⬇ הורדה</a>
+          <a class="btn btn-2" href="nunu_reset_percent_r1_psy_social.cover_9x16.jpg" download="nunu_reset_percent_r1_psy_social.cover_9x16.jpg">⬇ קאבר</a>
+        </div>
+        <button class="btn btn-2 btn-copy" type="button" data-act="copy">📋 העתק כיתוב</button>
+        <details class="cap">
+          <summary>הכיתוב <span class="tag"><bdi>ig_rs_b1</bdi></span></summary>
+          <div class="cap-tx">עשרים אחוז מחמישים זה לא עשרים.
+
+נונו מראה את המלכודת, והשיעור עצמו עושה את העבודה — אחוזים מאפס.
+
+את השאלות האלה לא תמצאו בשום מאגר — כתבנו אותן בעצמנו, ואימתנו כל תשובה לפני שהיא עלתה.
+
+הורידו חינם — הלינק בביו 👆
+
+#פסיכומטרי #מבחן_פסיכומטרי #אחוזים #מאפס #EduFlow</div>
+          <textarea class="cap-fb" readonly hidden aria-label="הכיתוב לסימון ידני">עשרים אחוז מחמישים זה לא עשרים.
+
+נונו מראה את המלכודת, והשיעור עצמו עושה את העבודה — אחוזים מאפס.
+
+את השאלות האלה לא תמצאו בשום מאגר — כתבנו אותן בעצמנו, ואימתנו כל תשובה לפני שהיא עלתה.
+
+הורידו חינם — הלינק בביו 👆
+
+#פסיכומטרי #מבחן_פסיכומטרי #אחוזים #מאפס #EduFlow</textarea>
+          <a class="cap-1x1" href="nunu_reset_percent_r1_psy_social.cover_1x1.jpg" download="nunu_reset_percent_r1_psy_social.cover_1x1.jpg">⬇ קאבר ריבועי <bdi>1:1</bdi> — לרשת של אינסטגרם</a>
+        </details>
+      </article>
+      </div>
+    </section>
+    <section class="row">
+      <h2 class="rowhead"><span class="display">אחוזים מאפס · ריל <bdi>2</bdi></span><span class="trap">רגע — גדול באחוזים זה כפל, לא חיבור.</span></h2>
+      <div class="pair">
+      <article class="card" data-stem="nunu_reset_percent_r2_il_social">
+        <button class="thumb" type="button" aria-label="נגן — אחוזים מאפס, ריל 2, TikTok">
+          <img src="nunu_reset_percent_r2_il_social.cover_9x16.jpg" alt="כיסוי הסרטון: אחוזים מאפס, ריל 2 — TikTok" width="1080" height="1920" loading="lazy" decoding="async">
+          <span class="play" aria-hidden="true"></span>
+        </button>
+        <p class="lbl"><span class="num"><bdi>#9</bdi></span> · אחוזים ריל <bdi>2</bdi></p>
+        <p class="badge badge-tt"><b>TikTok</b><bdi dir="ltr">@eduflow.il</bdi></p>
+        <p class="meta"><bdi>26.2</bdi> שנ׳ · <bdi>5.8</bdi> MB</p>
+        <button class="btn btn-go" type="button" data-act="play">▶ נגן</button>
+        <div class="btn-row">
+          <a class="btn btn-2" href="nunu_reset_percent_r2_il_social.mp4" download="nunu_reset_percent_r2_il_social.mp4">⬇ הורדה</a>
+          <a class="btn btn-2" href="nunu_reset_percent_r2_il_social.cover_9x16.jpg" download="nunu_reset_percent_r2_il_social.cover_9x16.jpg">⬇ קאבר</a>
+        </div>
+        <button class="btn btn-2 btn-copy" type="button" data-act="copy">📋 העתק כיתוב</button>
+        <details class="cap">
+          <summary>הכיתוב <span class="tag"><bdi>tt_rs_b2</bdi></span></summary>
+          <div class="cap-tx">גדול באחוזים זה כפל, לא חיבור.
+
+נונו מראה את המלכודת, והשיעור עצמו עושה את העבודה — אחוזים מאפס.
+
+את השאלות האלה לא תמצאו בשום מאגר — כתבנו אותן בעצמנו, ואימתנו כל תשובה לפני שהיא עלתה.
+
+הורידו חינם — חפשו &quot;EduFlow Campus&quot; ב-App Store
+
+#פסיכומטרי #מבחן_פסיכומטרי #אחוזים #מאפס #EduFlow</div>
+          <textarea class="cap-fb" readonly hidden aria-label="הכיתוב לסימון ידני">גדול באחוזים זה כפל, לא חיבור.
+
+נונו מראה את המלכודת, והשיעור עצמו עושה את העבודה — אחוזים מאפס.
+
+את השאלות האלה לא תמצאו בשום מאגר — כתבנו אותן בעצמנו, ואימתנו כל תשובה לפני שהיא עלתה.
+
+הורידו חינם — חפשו &quot;EduFlow Campus&quot; ב-App Store
+
+#פסיכומטרי #מבחן_פסיכומטרי #אחוזים #מאפס #EduFlow</textarea>
+          <a class="cap-1x1" href="nunu_reset_percent_r2_il_social.cover_1x1.jpg" download="nunu_reset_percent_r2_il_social.cover_1x1.jpg">⬇ קאבר ריבועי <bdi>1:1</bdi> — לרשת של אינסטגרם</a>
+        </details>
+      </article>
+      <article class="card" data-stem="nunu_reset_percent_r2_psy_social">
+        <button class="thumb" type="button" aria-label="נגן — אחוזים מאפס, ריל 2, Instagram">
+          <img src="nunu_reset_percent_r2_psy_social.cover_9x16.jpg" alt="כיסוי הסרטון: אחוזים מאפס, ריל 2 — Instagram" width="1080" height="1920" loading="lazy" decoding="async">
+          <span class="play" aria-hidden="true"></span>
+        </button>
+        <p class="lbl"><span class="num"><bdi>#10</bdi></span> · אחוזים ריל <bdi>2</bdi></p>
+        <p class="badge badge-ig"><b>Instagram</b><bdi dir="ltr">@eduflow__psychometric</bdi></p>
+        <p class="meta"><bdi>26.2</bdi> שנ׳ · <bdi>5.8</bdi> MB</p>
+        <button class="btn btn-go" type="button" data-act="play">▶ נגן</button>
+        <div class="btn-row">
+          <a class="btn btn-2" href="nunu_reset_percent_r2_psy_social.mp4" download="nunu_reset_percent_r2_psy_social.mp4">⬇ הורדה</a>
+          <a class="btn btn-2" href="nunu_reset_percent_r2_psy_social.cover_9x16.jpg" download="nunu_reset_percent_r2_psy_social.cover_9x16.jpg">⬇ קאבר</a>
+        </div>
+        <button class="btn btn-2 btn-copy" type="button" data-act="copy">📋 העתק כיתוב</button>
+        <details class="cap">
+          <summary>הכיתוב <span class="tag"><bdi>ig_rs_b2</bdi></span></summary>
+          <div class="cap-tx">גדול באחוזים זה כפל, לא חיבור.
+
+נונו מראה את המלכודת, והשיעור עצמו עושה את העבודה — אחוזים מאפס.
+
+את השאלות האלה לא תמצאו בשום מאגר — כתבנו אותן בעצמנו, ואימתנו כל תשובה לפני שהיא עלתה.
+
+הורידו חינם — הלינק בביו 👆
+
+#פסיכומטרי #מבחן_פסיכומטרי #אחוזים #מאפס #EduFlow</div>
+          <textarea class="cap-fb" readonly hidden aria-label="הכיתוב לסימון ידני">גדול באחוזים זה כפל, לא חיבור.
+
+נונו מראה את המלכודת, והשיעור עצמו עושה את העבודה — אחוזים מאפס.
+
+את השאלות האלה לא תמצאו בשום מאגר — כתבנו אותן בעצמנו, ואימתנו כל תשובה לפני שהיא עלתה.
+
+הורידו חינם — הלינק בביו 👆
+
+#פסיכומטרי #מבחן_פסיכומטרי #אחוזים #מאפס #EduFlow</textarea>
+          <a class="cap-1x1" href="nunu_reset_percent_r2_psy_social.cover_1x1.jpg" download="nunu_reset_percent_r2_psy_social.cover_1x1.jpg">⬇ קאבר ריבועי <bdi>1:1</bdi> — לרשת של אינסטגרם</a>
+        </details>
+      </article>
+      </div>
+    </section>
+
+  <footer>
+    מתכון <b>nunu-presenter-1.0</b> · <b>COUNCIL PASS</b> סבב <bdi>2</bdi> — <bdi>08/09 20:09</bdi><br>
+    <b>אפס קבצים בהחזקה</b> — שני קבצי <bdi>connect_r1</bdi> רונדרו מחדש (<bdi>73c74164</bdi>) ונמדדו מחדש מקצה־לקצה.<br>
+    כל סרטון נושא כיתוב אחד בלבד, של החשבון שחרוט בו.
+  </footer>
+</div>
+<script>
+(function(){
+  var live = null;
+
+  function stopLive(){
+    if(!live) return;
+    try{ live.v.pause(); }catch(err){}
+    live.card.replaceChild(live.thumb, live.v);
+    live = null;
+  }
+
+  function open(card){
+    var thumb = card.querySelector(".thumb");
+    if(!thumb) return;                       // already playing
+    stopLive();
+    var stem = card.dataset.stem;
+    var v = document.createElement("video");
+    v.setAttribute("playsinline","");
+    v.setAttribute("webkit-playsinline","");
+    v.setAttribute("controls","");
+    v.preload = "metadata";
+    v.poster = stem + ".cover_9x16.jpg";
+    v.src = stem + ".mp4";
+    card.replaceChild(v, thumb);
+    live = {card:card, thumb:thumb, v:v};
+    v.addEventListener("ended", function(){ /* leave the frame up */ });
+    var p = v.play();
+    if(p && p.catch) p.catch(function(){});   // autoplay refused → controls are there
+  }
+
+  document.querySelectorAll(".card").forEach(function(card){
+    card.querySelector(".thumb").addEventListener("click", function(){ open(card); });
+    card.querySelector('[data-act="play"]').addEventListener("click", function(){
+      var v = card.querySelector("video");
+      if(v){ var p = v.play(); if(p && p.catch) p.catch(function(){}); return; }
+      open(card);
+    });
+    var btn = card.querySelector('[data-act="copy"]');
+    btn.addEventListener("click", function(){
+      var det = card.querySelector(".cap");
+      var txt = card.querySelector(".cap-tx").textContent;
+      var label = "📋 העתק כיתוב";
+      var done = function(){
+        btn.classList.add("done"); btn.textContent = "✓ הכיתוב הועתק";
+        setTimeout(function(){ btn.classList.remove("done"); btn.textContent = label; }, 2200);
+      };
+      var fallback = function(){
+        det.open = true;
+        var ta = card.querySelector(".cap-fb");
+        ta.hidden = false; ta.focus(); ta.select();
+        try{ ta.setSelectionRange(0, ta.value.length); }catch(err){}
+        btn.textContent = "סמנו והעתיקו מהתיבה";
+        setTimeout(function(){ btn.textContent = label; }, 3200);
+      };
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(txt).then(done, fallback);
+      } else {
+        fallback();
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  /* OA-176 (batch 2; batch 1 = ../visual_lab_templates_2026-09-24/). Tokens lifted from lab/studio/nunu_batch_2026-09-08/index.html (graph-paper art direction) — no new colour decisions.
+  /* OA-177 (batch 2; batch 1 = ../visual_lab_templates_2026-09-24/). Tokens lifted from lab/studio/nunu_batch_2026-09-08/index.html (graph-paper art direction) — no new colour decisions.
      Media are SIBLING files (sim_*.mp4/.jpg); the Owner's reference screenshots are NOT published (third-party accounts, public site): upload the whole folder, not just this page. */
   :root{
     --paper:#FFFDFB; --sheet:#fff;
@@ -124,7 +124,7 @@
   const out = document.getElementById('out');
   function render() {
     const lines = Object.keys(NAMES).filter(k => picks[k]).map(k => NAMES[k] + ': ' + LABEL[picks[k]]);
-    out.textContent = lines.length ? 'OA-176 · ' + lines.join(' · ') : 'עוד לא נבחר כלום.';
+    out.textContent = lines.length ? 'OA-177 · ' + lines.join(' · ') : 'עוד לא נבחר כלום.';
   }
   document.querySelectorAll('.card').forEach(card => {
     card.querySelectorAll('.pick button').forEach(b => b.addEventListener('click', () => {

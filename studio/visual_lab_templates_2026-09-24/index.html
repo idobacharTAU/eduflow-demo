@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>מעבדת־ויז'ואל — 3 תבניות</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* OA-174. Tokens lifted from lab/studio/nunu_batch_2026-09-08/index.html (graph-paper art direction) — no new colour decisions.
+     Media are SIBLING files (sim_*.mp4/.jpg); the Owner's reference screenshots are NOT published (third-party accounts, public site): upload the whole folder, not just this page. */
+  :root{
+    --paper:#FFFDFB; --sheet:#fff;
+    --ink:#1A1430; --ink-2:#4A4360; --ink-3:#6E6880;
+    --rule:#E6E0D6; --rule-2:#CFC7B9;
+    --accent:#7C3AED; --accent-tint:#F4EFFE; --accent-edge:#DCCCFB;
+    --signal:#A14A08; --signal-fill:#F2B33A; --signal-tint:#FDF4E4; --signal-edge:#EFDFC2;
+    --ok:#226b41; --bad:#b42318;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    --grid:rgba(88,118,176,.15);
+    background-color:var(--paper);
+    background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:26px 26px;background-position:center top;
+    color:var(--ink);
+    font-family:"Rubik",-apple-system,"Segoe UI",system-ui,sans-serif;
+    font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;padding:0 0 48px;
+  }
+  img,video{max-width:100%;display:block}
+  .display{font-family:"Secular One","Rubik",sans-serif;font-weight:400;line-height:1.15}
+  .wrap{max-width:760px;margin:0 auto;padding:0 16px}
+  header{padding:26px 0 4px;text-align:center}
+  header h1{margin:0 0 8px;font-size:27px}
+  header p{margin:0 auto;max-width:34em;color:var(--ink-2);font-size:14.5px}
+  .howto{margin:16px 0 6px;padding:12px 14px;background:var(--signal-tint);border:1px solid var(--signal-edge);
+    border-inline-start:4px solid var(--signal-fill);border-radius:12px;font-size:14px}
+  .howto b{color:var(--signal);font-weight:600}
+  .card{margin:22px 0 0;background:var(--sheet);border:1px solid var(--rule);border-radius:16px;padding:14px;
+    box-shadow:0 1px 0 var(--rule-2)}
+  .card h2{margin:0 0 2px;font-size:22px}
+  .card .sub{margin:0 0 12px;color:var(--ink-3);font-size:13.5px}
+  .media{display:block;max-width:360px;margin:0 auto}
+  .media figure{margin:0}
+  .media figcaption{font-size:12.5px;color:var(--ink-3);margin-top:4px;text-align:center}
+  .media video{width:100%;aspect-ratio:1206/2622;background:#000;border-radius:12px}
+  .card ul{margin:10px 0 0;padding-inline-start:18px;font-size:14px;color:var(--ink-2)}
+  .card li{margin:2px 0}
+  .card li b{color:var(--ink)}
+  .pick{display:flex;gap:8px;margin-top:12px}
+  .pick button{flex:1;font:inherit;font-weight:600;padding:10px 0;border-radius:12px;border:1.5px solid var(--rule-2);
+    background:var(--paper);color:var(--ink);cursor:pointer}
+  .pick button[aria-pressed="true"][data-v="keep"]{background:#e8f4ec;border-color:var(--ok);color:var(--ok)}
+  .pick button[aria-pressed="true"][data-v="fix"]{background:var(--signal-tint);border-color:var(--signal-fill);color:var(--signal)}
+  .pick button[aria-pressed="true"][data-v="drop"]{background:#fdecea;border-color:var(--bad);color:var(--bad)}
+  .summary{margin:26px 0 0;padding:14px;background:var(--accent-tint);border:1px solid var(--accent-edge);border-radius:14px}
+  .summary pre{margin:8px 0 10px;white-space:pre-wrap;font:inherit;font-size:14px;min-height:1.6em}
+  .summary button{font:inherit;font-weight:600;padding:10px 16px;border-radius:12px;border:0;background:var(--accent);color:#fff;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1 class="display">מעבדת־ויז'ואל: שלוש תבניות</h1>
+    <p>שלוש תבניות־אנימציה בקוד, בלי קול. כל אחת מקבלת שאלה פסיכומטרית כנתונים ומפיקה ריל של 15 שניות, בלי עבודת־יד לכל ריל. הקליפים צולמו מתוך האפליקציה בסימולטור.</p>
+  </header>
+
+  <div class="howto">
+    <b>מה לשפוט:</b> טעם בלבד. האם זה נראה כמו הרפרנס ששלחת, ואם זה יכול להיכנס לפס־הייצור היומי.
+    לכל תבנית: <b>שומר</b> (נכנסת למפעל) · <b>לתקן</b> (כתוב מה) · <b>לזרוק</b>. בסוף יש כפתור שמעתיק את שלוש הבחירות.<br>
+    <b>שים לב:</b> כל קליפ הוא סיבוב אחד מלא, כפי שהאפליקציה מנגנת אותו. האפליקציה מנגנת במהירות ברירת־המחדל שלה, ‎1.15×‎, ולכן ריל של 15 שניות רץ כאן כ־13 שניות.
+  </div>
+
+  <section class="card" data-id="exam">
+    <h2 class="display">1 · דף מבחן + מרקר</h2>
+    <p class="sub">ברוח IMG_2069 · שאלה: עלייה וירידה של 20% (התשובה 96, המלכודת 100)</p>
+    <div class="media">
+      <figure><video src="sim_exam_sheet.mp4" poster="sim_exam_sheet.jpg" controls playsinline muted preload="metadata"></video><figcaption>מתוך האפליקציה (סימולטור)</figcaption></figure>
+    </div>
+    <ul>
+      <li><b>מה קורה:</b> הדף המודפס מלא מהפריים הראשון, יד עם מרקר מוחקת את המלכודת, כותבת בשוליים ‎120 × 0.8‎ וצובעת את התשובה.</li>
+      <li><b>לשים לב:</b> השרוול הוא צילינדר כהה ישר. הוא קריא, אבל עדיין "מצויר" ולא צילום.</li>
+    </ul>
+    <div class="pick" role="group" aria-label="בחירה לתבנית 1"><button data-v="keep" aria-pressed="false">שומר</button><button data-v="fix" aria-pressed="false">לתקן</button><button data-v="drop" aria-pressed="false">לזרוק</button></div>
+  </section>
+
+  <section class="card" data-id="versus">
+    <h2 class="display">2 · הדרך הארוכה מול הפסיכומטרית</h2>
+    <p class="sub">ברוח IMG_2478 (tech.in.sticks) · שאלה: ‎x² − 7x + 12 = 0‎ (הצבת מסיחים, התשובה 3)</p>
+    <div class="media">
+      <figure><video src="sim_versus.mp4" poster="sim_versus.jpg" controls playsinline muted preload="metadata"></video><figcaption>מתוך האפליקציה (סימולטור)</figcaption></figure>
+    </div>
+    <ul>
+      <li><b>מה קורה:</b> נוסחת השורשים נערמת והשעון רץ ל־2:00 ונמחק. הצבת המסיחים עוצרת ב־0:20. הסטיקמן מצביע, מושך בכתפיים ומסתובב.</li>
+      <li><b>לשים לב:</b> שורות החישוב קטנות מהרף שלנו (69 פיקסלים במקום 84) כי יש שתי עמודות. רגלי הסטיקמן נכנסות לאזור שם־הקורס של האפליקציה.</li>
+    </ul>
+    <div class="pick" role="group" aria-label="בחירה לתבנית 2"><button data-v="keep" aria-pressed="false">שומר</button><button data-v="fix" aria-pressed="false">לתקן</button><button data-v="drop" aria-pressed="false">לזרוק</button></div>
+  </section>
+
+  <section class="card" data-id="sketch">
+    <h2 class="display">3 · שרטוט חי על לוח כהה</h2>
+    <p class="sub">ברוח IMG_2423 (kodekloud) · שאלה: שטח משולש, בסיס 6 וגובה 4 (התשובה 12, המלכודת 24)</p>
+    <div class="media">
+      <figure><video src="sim_live_sketch.mp4" poster="sim_live_sketch.jpg" controls playsinline muted preload="metadata"></video><figcaption>מתוך האפליקציה (סימולטור)</figcaption></figure>
+    </div>
+    <ul>
+      <li><b>מה קורה:</b> הגובה נשרטט חי, נבנה מלבן חוסם ו־24 נמחק. החלקים מסתובבים ומראים שהמשולש הוא חצי מהמלבן, ואז ‎24 ÷ 2 = 12‎.</li>
+      <li><b>לשים לב:</b> החלקים מתכווצים קצת בזמן הסיבוב כדי לא לעלות על התווית, כך שבאמצע התנועה זה לא סיבוב מדויק.</li>
+    </ul>
+    <div class="pick" role="group" aria-label="בחירה לתבנית 3"><button data-v="keep" aria-pressed="false">שומר</button><button data-v="fix" aria-pressed="false">לתקן</button><button data-v="drop" aria-pressed="false">לזרוק</button></div>
+  </section>
+
+  <div class="summary">
+    <b>הבחירות שלך</b>
+    <pre id="out">עוד לא נבחר כלום.</pre>
+    <button id="copy">העתק ושלח לרועי</button>
+  </div>
+</div>
+<script>
+  const NAMES = { exam: 'דף מבחן', versus: 'ארוכה מול פסיכומטרית', sketch: 'שרטוט חי' };
+  const LABEL = { keep: 'שומר', fix: 'לתקן', drop: 'לזרוק' };
+  const picks = {};
+  const out = document.getElementById('out');
+  function render() {
+    const lines = Object.keys(NAMES).filter(k => picks[k]).map(k => NAMES[k] + ': ' + LABEL[picks[k]]);
+    out.textContent = lines.length ? 'OA-174 · ' + lines.join(' · ') : 'עוד לא נבחר כלום.';
+  }
+  document.querySelectorAll('.card').forEach(card => {
+    card.querySelectorAll('.pick button').forEach(b => b.addEventListener('click', () => {
+      card.querySelectorAll('.pick button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+      picks[card.dataset.id] = b.dataset.v; render();
+    }));
+  });
+  document.getElementById('copy').addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(out.textContent); document.getElementById('copy').textContent = 'הועתק ✓'; }
+    catch (e) { document.getElementById('copy').textContent = 'סמן והעתק ידנית'; }
+  });
+</script>
+</body>
+</html>
